@@ -13,8 +13,6 @@ sym_chain_B=BOS
 name_chain_A=eos
 name_chain_B=bos
 
-
-
 # Local wallet directory
 WALLET_DIR=~/tmp/eosio/eosio-wallet
 
@@ -29,3 +27,6 @@ relay_account=ibc2relay555
 # ibc.token contract account's public key and private key
 token_c_pubkey=EOS6Sc4BuA7dEGRU6u4VSuEKusESFe61qD8LmguGEMULrghKDSPaU
 token_c_prikey=5K79wAY8rgPwWQSRmyQa2BR8vPicieJdLCXL3cM5Db77QnsJess
+
+
+receiver=receiver1111

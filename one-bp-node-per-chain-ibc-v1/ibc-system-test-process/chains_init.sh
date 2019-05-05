@@ -15,10 +15,13 @@ create_account_by_pub_key chain_B ibc2relay555 EOS5jLHvXsFPvUAawjc6qodxUbkBjWcU1
 import_key ${token_c_prikey}
 
 create_some_accounts(){
-    create_account chain_A chain1a1ooo1
-    create_account chain_A chain1a1ooo2
-    create_account chain_B chain1b1ooo1
-    create_account chain_B chain1b1ooo2
+    create_account chain_A chaina2acnt1  # means chain A's account 1
+    create_account chain_A chaina2acnt2  # means chain A's account 2
+    create_account chain_B chainb2acnt1  # means chain B's account 1
+    create_account chain_B chainb2acnt2  # means chain B's account 2
+
+    create_account chain_A receiver1111
+    create_account chain_B receiver1111
 }
 create_some_accounts
 
