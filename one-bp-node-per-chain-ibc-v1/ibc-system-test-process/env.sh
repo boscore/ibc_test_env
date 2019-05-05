@@ -5,10 +5,15 @@ SYS_CONTRACTS_DIR=/Code/github.com/EOSIO/eosio.contracts/build/contracts    # th
 IBC_CONTRACTS_DIR=/Code/github.com/boscore/ibc_contracts/build              # the directory of IBC contracts
 
 
-# As bellow, we use `EOS` as the token symbol of chain A, and `BOS` as the token symbol of chain B
+# As bellow, we use `EOS` as the token symbol of chain A, 'eos' as the name of chain A;
+# and `BOS` as the token symbol of chain B, 'bos' as the name of chain B;
 # you can modify it according to your blockchains environment.
 sym_chain_A=EOS
 sym_chain_B=BOS
+name_chain_A=eos
+name_chain_B=bos
+
+
 
 # Local wallet directory
 WALLET_DIR=~/tmp/eosio/eosio-wallet
