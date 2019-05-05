@@ -1,22 +1,34 @@
 #!/usr/bin/env bash
 
 . env.sh
-#. chains_init.sh
-
 
 set_contracts(){
     cleos=cleos1 && if [ "$1" == "c2" ];then cleos=cleos2 ;fi
-    ${!cleos} set contract ${contract_chain} ${SYS_CONTRACTS_DIR}/${contract_chain_folder} -x 1000 -p ${contract_chain}
+    ${!cleos} set contract ${contract_chain} ${IBC_CONTRACTS_DIR}/ibc.chain -x 1000 -p ${contract_chain}
     sleep .2
-    ${!cleos} set contract ${contract_token} ${SYS_CONTRACTS_DIR}/${contract_token_folder} -x 1000 -p ${contract_token}
+    ${!cleos} set contract ${contract_token} ${IBC_CONTRACTS_DIR}/ibc.token-x 1000 -p ${contract_token}
     sleep .2
 }
 set_contracts c1
 set_contracts c2
 
+create_some_accounts(){
+
+
+
+
+create_account chain_A chengsong111
+create_account chain_B chengsong111
+
+create_account chain_A receivereos1
+create_account chain_B receiverbos1
+}
+
+
 init_contracts(){
     cleos=cleos1 && if [ "$1" == "c2" ];then cleos=cleos2 ;fi
 
+    import_key ${token_c_prikey}
     ${!cleos} set account permission ${contract_token} active '{"threshold": 1, "keys":[{"key":"'${token_c_pubkey}'", "weight":1}], "accounts":[{"permission":{"actor":"'${contract_token}'","permission":"eosio.code"},"weight":1}], "waits":[] }' owner -p ${contract_token}
 
     # --- ibc.chain ---

@@ -55,7 +55,7 @@ create_firstaccount(){
 create_firstaccount chain_A
 create_firstaccount chain_B
 
-create_one(){
+create_account(){
     cleos=cleos1 sym=${sym_chain_A} && if [ "$1" == "chain_B" ];then cleos=cleos2 sym=${sym_chain_B} ;fi
     name=$2
     new_keys
