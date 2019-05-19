@@ -15,7 +15,7 @@ init_contracts(){
     cleos=cleos1 && if [ "$1" == "chain_B" ];then cleos=cleos2 ;fi
 
     # --- init ibc.chain contract ---
-    ${!cleos}  push action  ${contract_chain} setglobal '[{"lib_depth":170}]' -p ${contract_chain}
+    ${!cleos}  push action  ${contract_chain} setlibdepth '[170]' -p ${contract_chain}
     ${!cleos}  push action  ${contract_chain} relay '["add","ibc2relay555"]' -p ${contract_chain}
     # cleos get table ${contract_chain} ${contract_chain} global
 
