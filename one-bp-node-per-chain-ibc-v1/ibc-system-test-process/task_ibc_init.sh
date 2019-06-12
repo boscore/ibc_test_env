@@ -28,8 +28,8 @@ init_contracts chain_B
 
 
 init_contracts_2(){
-    $cleos1 push action ${contract_token} setglobal '["ibc2chain555","'${name_chain_B}'","ibc2token555",5000,1000,10,true]' -p ${contract_token}
-    $cleos2 push action ${contract_token} setglobal '["ibc2chain555","'${name_chain_A}'","ibc2token555",5000,1000,10,true]' -p ${contract_token}
+    $cleos1 push action ${contract_token} setglobal '["ibc2chain555","'${name_chain_B}'","ibc2token555",0,1000,5,true]' -p ${contract_token}
+    $cleos2 push action ${contract_token} setglobal '["ibc2chain555","'${name_chain_A}'","ibc2token555",0,1000,5,true]' -p ${contract_token}
 }
 init_contracts_2
 
