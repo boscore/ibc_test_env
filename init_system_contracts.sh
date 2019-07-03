@@ -17,8 +17,8 @@ setup_system_contracts_and_issue_token(){
 
     # step 2: create system accounts
     sleep .5
-    for account in eosio.bpay eosio.msig eosio.names eosio.ram eosio.ramfee \
-                   eosio.saving eosio.stake eosio.token eosio.vpay
+    for account in eosio.token eosio.msig eosio.ram eosio.ramfee eosio.stake \
+                   eosio.bpay eosio.vpay eosio.names eosio.saving eosio.rex
     do
         echo -e "\n creating $account \n";
         ${!cleos} create account eosio ${account} EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV -p eosio -x 1000

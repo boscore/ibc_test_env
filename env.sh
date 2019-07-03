@@ -4,7 +4,6 @@
 # chain name can be "EOS" or "BOS", consensus can be "pipeline" or "batch", ibc_plugin_version can be 1 or 2
 chain_A=EOS_pipeline
 chain_B=BOS_batch
-ibc_plugin_version=2
 
 # config
 src_base_dir=/Code/github.com
@@ -13,16 +12,12 @@ nodeos_file=build/programs/nodeos/nodeos
 eosio_nodeos=${src_base_dir}/EOSIO/eos/${nodeos_file}
 boscore_nodeos=${src_base_dir}/boscore/bos/${nodeos_file}
 
-eosio_ibc_plugin_v1_nodeos=${src_base_dir}/boscore/ibc_plugin_eos/${nodeos_file}
-boscore_ibc_plugin_v1_nodeos=${src_base_dir}/boscore/ibc_plugin_bos/${nodeos_file}
-
-eosio_ibc_plugin_v2_nodeos=${src_base_dir}/vonhenry/ibc_plugin_eos_v2/${nodeos_file}
-boscore_ibc_plugin_v2_nodeos=${src_base_dir}/vonhenry/ibc_plugin_bos_v2/${nodeos_file}
+eosio_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_eos/${nodeos_file}
+boscore_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_bos/${nodeos_file}
 
 eosio_sys_contracts_dir=${src_base_dir}/EOSIO/eosio.contracts/build/contracts
 bos_sys_contracts_dir=${src_base_dir}/boscore/bos.contracts/build/contracts
-ibc_contracts_v1_dir=${src_base_dir}/vonhenry/ibc_contracts_v2/build
-ibc_contracts_v2_dir=${src_base_dir}/vonhenry/ibc_contracts_v2/build
+ibc_contracts_dir=${src_base_dir}/boscore/ibc_contracts/build
 
 eosio_launcher=${src_base_dir}/boscore/bos/build/programs/eosio-launcher/eosio-launcher
 cleos=${src_base_dir}/EOSIO/eos/build/programs/cleos/cleos
@@ -30,34 +25,26 @@ cleos=${src_base_dir}/EOSIO/eos/build/programs/cleos/cleos
 get_chain_type(){ echo $1 | cut -c -3; }
 get_chain_consensus(){ echo $1 | cut -c 5-; }
 
-if [ `get_chain_type $chain_A` == "EOS" ];then      chain_A_nodeos=$eosio_nodeos
-                                                    chain_A_sys_contracts_dir=$eosio_sys_contracts_dir
-    if [ $ibc_plugin_version == "1" ];then          chain_A_relay=$eosio_ibc_plugin_v1_nodeos
-    elif [ $ibc_plugin_version == "2" ];then        chain_A_relay=$eosio_ibc_plugin_v2_nodeos
-    else echo "plugin_version error!" && return ;fi
-elif [ `get_chain_type $chain_A` == "BOS" ];then    chain_A_nodeos=$boscore_nodeos
-                                                    chain_A_sys_contracts_dir=$bos_sys_contracts_dir
-    if [ $ibc_plugin_version == "1" ];then          chain_A_relay=$boscore_ibc_plugin_v1_nodeos
-    elif [ $ibc_plugin_version == "2" ];then        chain_A_relay=$boscore_ibc_plugin_v2_nodeos
-    else echo "plugin_version error!" && return ;fi
+if [ `get_chain_type $chain_A` == "EOS" ];then      
+    chain_A_nodeos=$eosio_nodeos
+    chain_A_sys_contracts_dir=$eosio_sys_contracts_dir
+elif [ `get_chain_type $chain_A` == "BOS" ];then    
+    chain_A_nodeos=$boscore_nodeos
+    chain_A_sys_contracts_dir=$bos_sys_contracts_dir
 else echo "chain name error!" && return ;fi
 
-if [ `get_chain_type $chain_B` == "EOS" ];then      chain_B_nodeos=$eosio_nodeos
-                                                    chain_B_sys_contracts_dir=$eosio_sys_contracts_dir
-    if [ $ibc_plugin_version == "1" ];then          chain_B_relay=$eosio_ibc_plugin_v1_nodeos
-    elif [ $ibc_plugin_version == "2" ];then        chain_B_relay=$eosio_ibc_plugin_v2_nodeos
-    else echo "plugin_version error!" && return ;fi
-elif [ `get_chain_type $chain_B` == "BOS" ];then    chain_B_nodeos=$boscore_nodeos
-                                                    chain_B_sys_contracts_dir=$bos_sys_contracts_dir
-    if [ $ibc_plugin_version == "1" ];then          chain_B_relay=$boscore_ibc_plugin_v1_nodeos
-    elif [ $ibc_plugin_version == "2" ];then        chain_B_relay=$boscore_ibc_plugin_v2_nodeos
-    else echo "plugin_version error!" && return ;fi
+if [ `get_chain_type $chain_B` == "EOS" ];then      
+    chain_B_nodeos=$eosio_nodeos
+    chain_B_sys_contracts_dir=$eosio_sys_contracts_dir
+elif [ `get_chain_type $chain_B` == "BOS" ];then    
+    chain_B_nodeos=$boscore_nodeos
+    chain_B_sys_contracts_dir=$bos_sys_contracts_dir
 else echo "chain name error!" && return ;fi
 
+chain_A_relay=$eosio_ibc_plugin_nodeos
+chain_B_relay=$boscore_ibc_plugin_nodeos
 
-if [ $ibc_plugin_version == "1" ];then              ibc_contracts_dir=$ibc_contracts_v1_dir
-    elif [ $ibc_plugin_version == "2" ];then        ibc_contracts_dir=$ibc_contracts_v2_dir
-    else echo "plugin_version error!" && return ;fi
+ibc_contracts_dir=$ibc_contracts_dir
 
 
 check_configs(){
