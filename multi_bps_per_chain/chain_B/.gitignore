@@ -5,3 +5,4 @@ programs
 staging
 testnet.dot
 var
+docker-compose.yml
