@@ -2,6 +2,12 @@
 
 read -d '' bios << EOF
 version: '3'
+
+networks:
+  default:
+    external:
+      name: chain_b
+
 services:
   bp_bios:
     image: "boscore/bos:v3.0.0"
@@ -36,3 +42,11 @@ echo """
 """  >> docker-compose.yml
 done
 
+
+network_prepare(){
+    docker network rm chain_b       >/dev/null 2>/dev/null
+    docker network create chain_b   >/dev/null
+    host_ip=`docker network inspect chain_b | jq .[0].IPAM.Config[0].Gateway | sed 's/\"//g'`
+    sed 's/p2p-peer-address = localhost/p2p-peer-address = '$host_ip'/g' ./config.sh > ./config_docker.sh
+}
+network_prepare

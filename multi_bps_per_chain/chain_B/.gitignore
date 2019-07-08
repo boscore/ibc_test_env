@@ -6,3 +6,4 @@ staging
 testnet.dot
 var
 docker-compose.yml
+config_docker.sh

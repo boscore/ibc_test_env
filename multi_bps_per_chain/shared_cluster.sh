@@ -19,9 +19,13 @@ cluster_init(){
     fi
 
     now=`date -u +%Y-%m-%dT%H:%M:%S.000`
-    sed 's/"initial_timestamp": ".*/"initial_timestamp": "'$now'",/g' ./config.sh >  ./config_gen.sh
+
+    src_config=./config.sh
+    if [ -f ./config_docker.sh ]; then src_config=./config_docker.sh ;fi
+    sed 's/"initial_timestamp": ".*/"initial_timestamp": "'$now'",/g' $src_config > ./config_gen.sh
     . config_gen.sh
     rm config_gen.sh
+    if [ -f ./config_docker.sh ]; then rm ./config_docker.sh ;fi
 
     cName=config.ini
     lName=logging.json
