@@ -42,8 +42,11 @@ cluster_init(){
         mkdir -p $path
         c=config$i  && echo "${!c}"     > $path/$cName
         echo "$config_common"          >> $path/$cName
-        #echo "produce-time-offset-us=$(($RANDOM*100-1638400))"               >> $path/$cName         ###
-        #for j in `seq -w 00 21`; do echo "p2p-peer-address = localhost:99$j" >> $path/$cName ;done   ###
+
+        echo "produce-time-offset-us=-$(($(($RANDOM/4))*100))"                  >> $path/$cName         ###
+        echo "last-block-time-offset-us=0"                                      >> $path/$cName         ###
+#        for j in `seq -w 00 21`; do echo "p2p-peer-address = localhost:99$j"    >> $path/$cName ;done   ###
+
         l=logging && echo "${!l}"       > $path/$lName
         echo "$genesis"                 > $path/$gName
     done
@@ -54,7 +57,7 @@ total_nodes=22
 delay=0 # 0 or 1 second
 
 cluster_start(){
-    $eosio_launcher -p $pnodes -n $total_nodes --nogen -d $delay --nodeos "--max-transaction-time 1000"
+    $eosio_launcher -p $pnodes -n $total_nodes --nogen -d $delay --nodeos "--max-transaction-time 1000 " ### --hard-replay-blockchain
 }
 
 cluster_clear(){

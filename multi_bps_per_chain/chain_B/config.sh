@@ -440,3 +440,28 @@ read -d '' logging << EOF
   ]
 }
 EOF
+
+
+
+
+
+
+# "loggers": [{
+#      "name": "default",
+#      "level": "debug",
+#      "enabled": true,
+#      "additivity": false,
+#      "appenders": [
+#        "stderr"
+#      ]
+#    },
+#    {
+#      "name": "net_plugin_impl",
+#      "level": "debug",
+#      "enabled": true,
+#      "additivity": false,
+#      "appenders": [
+#        "stderr"
+#      ]
+#    }
+#  ]
