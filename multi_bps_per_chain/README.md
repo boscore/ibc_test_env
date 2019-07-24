@@ -1,33 +1,53 @@
 
+### How to Use
 
 ``` 
-# step 1 in new shell
-cd ./clusters-ibc/cluster-one
+# Step 0:
+# check ./env.sh and ensure all configurations are correct.
+
+# note: <root> bellow means the root directory of this repository.
+
+# Step 1: start blockchain A
+# open a new shell and run bellow commands
+cd <root>/multi_bps_per_chain/chain_A
 ./cluster.sh init
 ./cluster.sh start
-tail -f ./var/lib/node_01/stderr.txt
+./cluster.sh check
+./cluster.sh log bios
 
 
-# step 2 in new shell
-cd ./clusters-ibc/cluster-two
+# Step 2: start blockchain B
+# open a new shell and run bellow commands
+cd <root>/multi_bps_per_chain/chain_B
 ./cluster.sh init
 ./cluster.sh start
-tail -f ./var/lib/node_01/stderr.txt
+./cluster.sh check
+./cluster.sh log bios
 
 
-# step 3 in new shell
-cd ./clusters-ibc
-./chain_run.sh
+# Step 3: init both blockchains
+# open a new shell and run bellow commands
+cd <root>/multi_bps_per_chain
+. init_chains.sh
 
 
-# step 4 start test in new shell
-cd ./clusters-ibc
+# Step 4: start relay-channel
+# open a new shell and run bellow commands
+cd <root>/multi_bps_per_chain/relays
+./cluster.sh init
+# then you can start one relay-channel according functon "relay_channel_1" in ./multi_bps_per_chain/relays/cluster.sh
+# and you can start another relay-channel according functon "relay_channel_2" in ./multi_bps_per_chain/relays/cluster.sh
+
+
+# Step 5: deploy IBC contracts, init them and test
+# open a new shell and run bellow commands
+cd <root>
 . task_ibc_test.sh
 
-
-
-# clear shell backgroud processes and log files
-cd ./clusters-ibc
-. clear.sh
+# test ibc transaction
+transfer
+transfer_fail
+withdraw
+withdraw_fail
 
 ```
