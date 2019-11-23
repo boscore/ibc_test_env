@@ -134,8 +134,10 @@ get_token_table_by_scope(){
 #    get_chain_table chaindb
 #    get_token_table globals
 #    get_token_table peerchainm
-#    get_token_table_by_scope origtrxs
 #    get_token_table_by_scope cashtrxs
+#
+
+# $cleos1 get currency stats ${contract_token} BOSPG
 
 
 get_account(){
