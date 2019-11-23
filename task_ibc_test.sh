@@ -52,6 +52,14 @@ init_contracts(){
 init_contracts chain_A
 init_contracts chain_B
 
+
+register_relay(){
+    $cleos1 push action ${contract_chain} relay '["add","ibc2relay555"]' -p   ${contract_chain}
+    $cleos2 push action ${contract_chain} relay '["add","ibc2relay555"]' -p   ${contract_chain}
+}
+register_relay
+
+
 init_two(){
     $cleos1 push action ${contract_token} regacpttoken \
         '["eosio.token","4,EOS","4,EOSPG","1000000000.0000 EOS","10.0000 EOS","5000.0000 EOS",
