@@ -63,7 +63,7 @@ init_contracts_for_chain_a_step2(){
     # cleos get table ${contract_chain} ${contract_chain} global
 
     # --- ibc.token ---
-    ${!cleos} push action  ${contract_token} regpeerchain '['$peerchain_name','$peerchain_info',"ibc2token555","ibc2chain555","freeaccount1",5,1000,1000,true]' -p ${contract_token}
+    ${!cleos} push action  ${contract_token} regpeerchain '['$peerchain_name','$peerchain_info',"ibc2token555",'${!contract_ibc_chain}',"freeaccount1",5,1000,1000,true]' -p ${contract_token}
     # cleos get table ${contract_token} ${contract_token} globals
     # cleos get table ${contract_token} ${contract_token} peerchains
 }
