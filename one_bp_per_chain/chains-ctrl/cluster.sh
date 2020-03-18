@@ -17,7 +17,7 @@ cluster_init(){
         echo "$logging"                         > $path/$lName
     done
 
-    for i in a b c d; do
+    for i in a2b a2c a2d b c d; do
         path=staging/etc/eosio/node_relay_chain_${i}
         mkdir -p $path
         echo "$config_relay_common" > $path/$cName && echo >> $path/$cName
@@ -46,18 +46,20 @@ esac
 # open four bash shells and execute the following four commands in each one.
 nodes_managment(){
 
-    ### char=a,b,c,d
+    ## ---------  start bios node  ---------
 
-    char=a
+    ## set char first,
+    ##  char=a  b  c  or  d
     bios_chain_data=var/lib/node_bios_chain_${char}
     bios_chain_conf=staging/etc/eosio/node_bios_chain_${char}
-    relay_chain_data=var/lib/node_relay_chain_${char}
-    relay_chain_conf=staging/etc/eosio/node_relay_chain_${char}
-
-    ## start bios
     ./programs/nodeos/chain_${char}/nodeos -e -p eosio -d $bios_chain_data --config-dir $bios_chain_conf
 
-    ## start relay
+    ## ---------  start relay node  ---------
+
+    ## set char first,
+    ## char=a2b a2c a2d  b  c  d
+    relay_chain_data=var/lib/node_relay_chain_${char}
+    relay_chain_conf=staging/etc/eosio/node_relay_chain_${char}
     ./programs/ibc-relay/chain_${char}/nodeos  -d $relay_chain_data --config-dir $relay_chain_conf
 }
 
