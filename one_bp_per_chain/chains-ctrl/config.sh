@@ -8,6 +8,7 @@ plugin = eosio::chain_api_plugin
 plugin = eosio::net_plugin
 contracts-console = true
 max-transaction-time = 1000
+p2p-max-nodes-per-host = 20
 
 producer-name = eosio
 signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3

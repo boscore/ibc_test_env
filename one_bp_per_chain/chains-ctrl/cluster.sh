@@ -60,6 +60,7 @@ nodes_managment(){
     ## char=a2b a2c a2d  b  c  d
     relay_chain_data=var/lib/node_relay_chain_${char}
     relay_chain_conf=staging/etc/eosio/node_relay_chain_${char}
-    ./programs/ibc-relay/chain_${char}/nodeos  -d $relay_chain_data --config-dir $relay_chain_conf
+    c=`echo $char | cut -c 1`
+    ./programs/ibc-relay/chain_${c}/nodeos  -d $relay_chain_data --config-dir $relay_chain_conf
 }
 
