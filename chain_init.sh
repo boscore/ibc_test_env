@@ -33,3 +33,10 @@ create_some_accounts chain_b
 create_some_accounts chain_c
 #create_some_accounts chain_d
 
+
+create_accounts_for_chain_a(){
+    create_account chain_a ${contract_chain_b}
+    create_account chain_a ${contract_chain_c}
+    create_account chain_a ${contract_chain_d}
+}
+create_accounts_for_chain_a

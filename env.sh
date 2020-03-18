@@ -104,6 +104,12 @@ contract_chain=ibc2chain555
 contract_token=ibc2token555
 relay_account=ibc2relay555
 
+#
+contract_chain_b=ibc2chain22b
+contract_chain_c=ibc2chain22c
+contract_chain_d=ibc2chain22d
+
+
 # ibc.token contract account's public key and private key
 token_c_pubkey=EOS6Sc4BuA7dEGRU6u4VSuEKusESFe61qD8LmguGEMULrghKDSPaU
 token_c_prikey=5K79wAY8rgPwWQSRmyQa2BR8vPicieJdLCXL3cM5Db77QnsJess
