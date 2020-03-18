@@ -10,12 +10,12 @@ cluster_init(){
     mkdir -p ${program_dir}/nodeos
     cur_path=`pwd`
     bn=`basename $cur_path`
-    if [ "$bn" == "chain_A" ]; then
-        cp $chain_A_nodeos ${program_dir}/nodeos
-    elif [ "$bn" == "chain_B" ]; then
-        cp $chain_B_nodeos ${program_dir}/nodeos
+    if [ "$bn" == "chain_a" ]; then
+        cp $chain_a_nodeos ${program_dir}/nodeos
+    elif [ "$bn" == "chain_b" ]; then
+        cp $chain_b_nodeos ${program_dir}/nodeos
     else
-        echo "error! you must run this command in directory 'chain_A' or 'chain_B'" && exit
+        echo "error! you must run this command in directory 'chain_a' or 'chain_b'" && exit
     fi
 
     now=`date -u +%Y-%m-%dT%H:%M:%S.000`

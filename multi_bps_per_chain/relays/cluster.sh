@@ -8,10 +8,10 @@ cluster_init(){
 
     program_dir=./programs
     if [ -d ${program_dir} ]; then rm -rf ${program_dir}; fi
-    mkdir -p ${program_dir}/ibc-relay/chain_A
-    mkdir -p ${program_dir}/ibc-relay/chain_B
-    cp $chain_A_relay ${program_dir}/ibc-relay/chain_A
-    cp $chain_B_relay ${program_dir}/ibc-relay/chain_B
+    mkdir -p ${program_dir}/ibc-relay/chain_a
+    mkdir -p ${program_dir}/ibc-relay/chain_b
+    cp $chain_a_relay ${program_dir}/ibc-relay/chain_a
+    cp $chain_b_relay ${program_dir}/ibc-relay/chain_b
 
     cName=config.ini
     lName=logging.json
@@ -57,32 +57,32 @@ esac
 relay_channel_1(){
     # run following commands in shell 1
     echo "starting relay node of chain A"
-    data_relay_chain_A=var/lib/node_relay1_chain_A
-    conf_relay_chain_A=staging/etc/eosio/node_relay1_chain_A
-    ./programs/ibc-relay/chain_A/nodeos  -d $data_relay_chain_A --config-dir $conf_relay_chain_A --genesis-json staging/etc/eosio/node_relay1_chain_A/genesis.json
+    data_relay_chain_a=var/lib/node_relay1_chain_a
+    conf_relay_chain_a=staging/etc/eosio/node_relay1_chain_a
+    ./programs/ibc-relay/chain_a/nodeos  -d $data_relay_chain_a --config-dir $conf_relay_chain_a --genesis-json staging/etc/eosio/node_relay1_chain_a/genesis.json
 
 
     # run following commands in shell 2
     echo "starting relay node of chain B"
-    data_relay_chain_B=var/lib/node_relay1_chain_B
-    conf_relay_chain_B=staging/etc/eosio/node_relay1_chain_B
-    ./programs/ibc-relay/chain_B/nodeos  -d $data_relay_chain_B --config-dir $conf_relay_chain_B --genesis-json staging/etc/eosio/node_relay1_chain_B/genesis.json
+    data_relay_chain_b=var/lib/node_relay1_chain_b
+    conf_relay_chain_b=staging/etc/eosio/node_relay1_chain_b
+    ./programs/ibc-relay/chain_b/nodeos  -d $data_relay_chain_b --config-dir $conf_relay_chain_b --genesis-json staging/etc/eosio/node_relay1_chain_b/genesis.json
 
 }
 
 relay_channel_2(){
     # run following commands in shell 3
     echo "starting relay node of chain A"
-    data_relay_chain_A=var/lib/node_relay2_chain_A
-    conf_relay_chain_A=staging/etc/eosio/node_relay2_chain_A
-    ./programs/ibc-relay/chain_A/nodeos  -d $data_relay_chain_A --config-dir $conf_relay_chain_A --genesis-json staging/etc/eosio/node_relay2_chain_A/genesis.json
+    data_relay_chain_a=var/lib/node_relay2_chain_a
+    conf_relay_chain_a=staging/etc/eosio/node_relay2_chain_a
+    ./programs/ibc-relay/chain_a/nodeos  -d $data_relay_chain_a --config-dir $conf_relay_chain_a --genesis-json staging/etc/eosio/node_relay2_chain_a/genesis.json
 
 
     # run following commands in shell 4
     echo "starting relay node of chain B"
-    data_relay_chain_B=var/lib/node_relay2_chain_B
-    conf_relay_chain_B=staging/etc/eosio/node_relay2_chain_B
-    ./programs/ibc-relay/chain_B/nodeos  -d $data_relay_chain_B --config-dir $conf_relay_chain_B --genesis-json staging/etc/eosio/node_relay2_chain_B/genesis.json
+    data_relay_chain_b=var/lib/node_relay2_chain_b
+    conf_relay_chain_b=staging/etc/eosio/node_relay2_chain_b
+    ./programs/ibc-relay/chain_b/nodeos  -d $data_relay_chain_b --config-dir $conf_relay_chain_b --genesis-json staging/etc/eosio/node_relay2_chain_b/genesis.json
 
 }
 

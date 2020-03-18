@@ -9,7 +9,7 @@
 
 # Step 1: start blockchain A
 # open a new shell and run bellow commands
-cd <root>/multi_bps_per_chain/chain_A
+cd <root>/multi_bps_per_chain/chain_a
 ./cluster.sh init
 ./cluster.sh start
 ./cluster.sh check
@@ -18,7 +18,7 @@ cd <root>/multi_bps_per_chain/chain_A
 
 # Step 2: start blockchain B
 # open a new shell and run bellow commands
-cd <root>/multi_bps_per_chain/chain_B
+cd <root>/multi_bps_per_chain/chain_b
 ./cluster.sh init
 ./cluster.sh start
 ./cluster.sh check

@@ -3,8 +3,8 @@
 cpath=`pwd`
 bn=`basename $cpath`
 
-if [ "$bn" != "chain_A" ]; then
-    echo "error! you must run this command in directory 'chain_A'"
+if [ "$bn" != "chain_a" ]; then
+    echo "error! you must run this command in directory 'chain_a'"
     exit
 fi
 

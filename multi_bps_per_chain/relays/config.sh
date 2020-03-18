@@ -15,7 +15,7 @@ ibc-relay-private-key = EOS5jLHvXsFPvUAawjc6qodxUbkBjWcU1j6GUghsNvsGPRdFV5ZWi=KE
 EOF
 
 
-read -d '' config_relay1_chain_A << EOF
+read -d '' config_relay1_chain_a << EOF
 http-server-address = 127.0.0.1:28800
 
 p2p-server-address = localhost:8011
@@ -34,7 +34,7 @@ ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY
 EOF
 
 
-read -d '' config_relay1_chain_B << EOF
+read -d '' config_relay1_chain_b << EOF
 http-server-address = 127.0.0.1:28900
 
 p2p-server-address = localhost:9011
@@ -54,7 +54,7 @@ EOF
 
 
 
-read -d '' config_relay2_chain_A << EOF
+read -d '' config_relay2_chain_a << EOF
 http-server-address = 127.0.0.1:28801
 
 p2p-server-address = localhost:8012
@@ -73,7 +73,7 @@ ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY
 EOF
 
 
-read -d '' config_relay2_chain_B << EOF
+read -d '' config_relay2_chain_b << EOF
 http-server-address = 127.0.0.1:28901
 
 p2p-server-address = localhost:9012

@@ -13,18 +13,31 @@ producer-name = eosio
 signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 EOF
 
-read -d '' config_bios_chain_A << EOF
-p2p-server-address = localhost:8001
-p2p-listen-endpoint = 0.0.0.0:8001
-http-server-address = 127.0.0.1:8002
+read -d '' config_bios_chain_a << EOF
+p2p-server-address = localhost:4001
+p2p-listen-endpoint = 0.0.0.0:4001
+http-server-address = 127.0.0.1:4002
 EOF
 
-read -d '' config_bios_chain_B << EOF
-p2p-server-address = localhost:9001
-p2p-listen-endpoint = 0.0.0.0:9001
-http-server-address = 127.0.0.1:9002
+read -d '' config_bios_chain_b << EOF
+p2p-server-address = localhost:5001
+p2p-listen-endpoint = 0.0.0.0:5001
+http-server-address = 127.0.0.1:5002
 EOF
 
+
+read -d '' config_bios_chain_c << EOF
+p2p-server-address = localhost:6001
+p2p-listen-endpoint = 0.0.0.0:6001
+http-server-address = 127.0.0.1:6002
+EOF
+
+
+read -d '' config_bios_chain_d << EOF
+p2p-server-address = localhost:7001
+p2p-listen-endpoint = 0.0.0.0:7001
+http-server-address = 127.0.0.1:7002
+EOF
 
 
 read -d '' config_relay_common << EOF
@@ -35,35 +48,66 @@ contracts-console = true
 max-transaction-time = 1000
 
 plugin = eosio::ibc::ibc_plugin
+ibc-max-clients = 20
+ibc-max-nodes-per-host = 20
 ibc-chain-contract = ibc2chain555
 ibc-token-contract = ibc2token555
 ibc-relay-name = ibc2relay555
 ibc-relay-private-key = EOS5jLHvXsFPvUAawjc6qodxUbkBjWcU1j6GUghsNvsGPRdFV5ZWi=KEY:5K2ezP476ThBo9zSrDqTofzaLiKrQaLEkAzv3USdeaFFrD5LAX1
 EOF
 
-read -d '' config_relay_chain_A << EOF
-p2p-server-address = localhost:8011
-p2p-listen-endpoint = 0.0.0.0:8011
-http-server-address = 127.0.0.1:8012
-p2p-peer-address = localhost:8001
+read -d '' config_relay_chain_a << EOF
+p2p-server-address = localhost:4011
+p2p-listen-endpoint = 0.0.0.0:4011
+http-server-address = 127.0.0.1:4012
+p2p-peer-address = localhost:4001
 
-ibc-listen-endpoint = 0.0.0.0:6001
-#ibc-peer-address = 127.0.0.1:6002  # comment out the line
+ibc-listen-endpoint = 0.0.0.0:4201
+#ibc-peer-address = 127.0.0.1:4202  # comment out the line
+
+ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
+EOF
+
+read -d '' config_relay_chain_b << EOF
+p2p-server-address = localhost:5011
+p2p-listen-endpoint = 0.0.0.0:5011
+http-server-address = 127.0.0.1:5012
+p2p-peer-address = localhost:5001
+
+ibc-listen-endpoint = 0.0.0.0:5202
+ibc-peer-address = 127.0.0.1:4201
 
 ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
 EOF
 
-read -d '' config_relay_chain_B << EOF
-p2p-server-address = localhost:9011
-p2p-listen-endpoint = 0.0.0.0:9011
-http-server-address = 127.0.0.1:9012
-p2p-peer-address = localhost:9001
 
-#ibc-listen-endpoint = 0.0.0.0:6002 # comment out the line
-ibc-peer-address = 127.0.0.1:6001
+
+read -d '' config_relay_chain_c << EOF
+p2p-server-address = localhost:6011
+p2p-listen-endpoint = 0.0.0.0:6011
+http-server-address = 127.0.0.1:6012
+p2p-peer-address = localhost:6001
+
+ibc-listen-endpoint = 0.0.0.0:6202
+ibc-peer-address = 127.0.0.1:4201
 
 ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
 EOF
+
+
+read -d '' config_relay_chain_d << EOF
+p2p-server-address = localhost:7011
+p2p-listen-endpoint = 0.0.0.0:7011
+http-server-address = 127.0.0.1:7012
+p2p-peer-address = localhost:7001
+
+ibc-listen-endpoint = 0.0.0.0:7202
+ibc-peer-address = 127.0.0.1:4201
+
+ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
+EOF
+
+
 
 
 read -d '' logging << EOF

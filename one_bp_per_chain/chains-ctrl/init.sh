@@ -7,14 +7,22 @@ if [ -d ${program_dir} ]; then
     rm -rf ${program_dir}
 fi
 
-mkdir -p ${program_dir}/nodeos/chain_A
-mkdir -p ${program_dir}/nodeos/chain_B
+mkdir -p ${program_dir}/nodeos/chain_a
+mkdir -p ${program_dir}/nodeos/chain_b
+mkdir -p ${program_dir}/nodeos/chain_c
+mkdir -p ${program_dir}/nodeos/chain_d
 
-mkdir -p ${program_dir}/ibc-relay/chain_A
-mkdir -p ${program_dir}/ibc-relay/chain_B
+mkdir -p ${program_dir}/ibc-relay/chain_a
+mkdir -p ${program_dir}/ibc-relay/chain_b
+mkdir -p ${program_dir}/ibc-relay/chain_c
+mkdir -p ${program_dir}/ibc-relay/chain_d
 
-cp $chain_A_nodeos ${program_dir}/nodeos/chain_A
-cp $chain_B_nodeos ${program_dir}/nodeos/chain_B
+cp $chain_a_nodeos ${program_dir}/nodeos/chain_a
+cp $chain_b_nodeos ${program_dir}/nodeos/chain_b
+cp $chain_c_nodeos ${program_dir}/nodeos/chain_c
+cp $chain_d_nodeos ${program_dir}/nodeos/chain_d
 
-cp $chain_A_relay ${program_dir}/ibc-relay/chain_A
-cp $chain_B_relay ${program_dir}/ibc-relay/chain_B
+cp $chain_a_relay ${program_dir}/ibc-relay/chain_a
+cp $chain_b_relay ${program_dir}/ibc-relay/chain_b
+cp $chain_c_relay ${program_dir}/ibc-relay/chain_c
+cp $chain_d_relay ${program_dir}/ibc-relay/chain_d

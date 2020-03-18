@@ -9,7 +9,7 @@ cluster_init(){
     cName=config.ini
     lName=logging.json
 
-    for i in A B; do
+    for i in a b c d; do
         path=staging/etc/eosio/node_bios_chain_${i}
         mkdir -p $path
         echo "$config_bios_common"              > $path/$cName
@@ -17,7 +17,7 @@ cluster_init(){
         echo "$logging"                         > $path/$lName
     done
 
-    for i in A B; do
+    for i in a b c d; do
         path=staging/etc/eosio/node_relay_chain_${i}
         mkdir -p $path
         echo "$config_relay_common" > $path/$cName && echo >> $path/$cName
@@ -45,31 +45,19 @@ esac
 # Please do not execute this function, each of the following command groups can start a node,
 # open four bash shells and execute the following four commands in each one.
 nodes_managment(){
-    # run following commands in shell 1
-    echo "starting bios node of chain A"
-    data_bios_chain_A=var/lib/node_bios_chain_A
-    conf_bios_chain_A=staging/etc/eosio/node_bios_chain_A
-    ./programs/nodeos/chain_A/nodeos -e -p eosio -d $data_bios_chain_A --config-dir $conf_bios_chain_A
 
+    ### char=a,b,c,d
 
-    # run following commands in shell 2
-    echo "starting bios node of chain B"
-    data_bios_chain_B=var/lib/node_bios_chain_B
-    conf_bios_chain_B=staging/etc/eosio/node_bios_chain_B
-    ./programs/nodeos/chain_B/nodeos -e -p eosio -d $data_bios_chain_B --config-dir $conf_bios_chain_B
+    char=a
+    bios_chain_data=var/lib/node_bios_chain_${char}
+    bios_chain_conf=staging/etc/eosio/node_bios_chain_${char}
+    relay_chain_data=var/lib/node_relay_chain_${char}
+    relay_chain_conf=staging/etc/eosio/node_relay_chain_${char}
 
+    ## start bios
+    ./programs/nodeos/chain_${char}/nodeos -e -p eosio -d $bios_chain_data --config-dir $bios_chain_conf
 
-    # run following commands in shell 3
-    echo "starting relay node of chain A"
-    data_relay_chain_A=var/lib/node_relay_chain_A
-    conf_relay_chain_A=staging/etc/eosio/node_relay_chain_A
-    ./programs/ibc-relay/chain_A/nodeos  -d $data_relay_chain_A --config-dir $conf_relay_chain_A
-
-
-    # run following commands in shell 4
-    echo "starting relay node of chain B"
-    data_relay_chain_B=var/lib/node_relay_chain_B
-    conf_relay_chain_B=staging/etc/eosio/node_relay_chain_B
-    ./programs/ibc-relay/chain_B/nodeos -d $data_relay_chain_B --config-dir $conf_relay_chain_B
+    ## start relay
+    ./programs/ibc-relay/chain_${char}/nodeos  -d $relay_chain_data --config-dir $relay_chain_conf
 }
 

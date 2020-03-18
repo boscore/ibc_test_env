@@ -3,14 +3,12 @@
 ## ./init.sh
 
 setup_system_contracts_and_issue_token(){
-    cleos=cleos1
-    sym=${chain_A_token_sym}
-    sys_contracts_dir=${chain_A_sys_contracts_dir}
-    if [ "$1" == "chain_B" ];then
-        cleos=cleos2
-        sym=${chain_B_token_sym}
-        sys_contracts_dir=${chain_B_sys_contracts_dir}
-    fi
+    char=`echo $1 | cut -c 7`
+
+    cleos=cleos_${char}
+    var=chain_${char}_token_sym         && sym=${!var}
+    var=chain_${char}_sys_contracts_dir && sys_contracts_dir=${!var}
+
 
     # step 1: set contract eosio.bios
     ${!cleos} set contract eosio ${sys_contracts_dir}/eosio.bios -p eosio
@@ -44,17 +42,18 @@ setup_system_contracts_and_issue_token(){
     ${!cleos} push action eosio init '[0, "4,'$sym'"]' -p eosio
 
 }
-setup_system_contracts_and_issue_token chain_A
-setup_system_contracts_and_issue_token chain_B
+setup_system_contracts_and_issue_token chain_a
+setup_system_contracts_and_issue_token chain_b
+setup_system_contracts_and_issue_token chain_c
+#setup_system_contracts_and_issue_token chain_d
 
 sleep .2
 upgrade_consensus(){
-    cleos=cleos1
-    consensus=`get_chain_consensus ${chain_A}`
-    if [ "$1" == "chain_B" ];then
-        cleos=cleos2
-        consensus=`get_chain_consensus ${chain_B}`
-    fi
+    char=`echo $1 | cut -c 7`
+    cleos=cleos_${char}
+
+    chain=$1
+    consensus=`get_chain_consensus ${!chain}`
 
     if [ "$consensus" == "batch" ];then
         head_num=`${!cleos} get info |jq .head_block_num`
@@ -62,12 +61,19 @@ upgrade_consensus(){
         ${!cleos} push action eosio setupgrade '{"up":{"target_block_num":'${target_num}'}}' -p eosio
     fi
 }
-upgrade_consensus chain_A
-upgrade_consensus chain_B
+upgrade_consensus chain_a
+upgrade_consensus chain_b
+upgrade_consensus chain_c
+#upgrade_consensus chain_d
+
 
 sleep .2
 create_firstaccount(){
-    cleos=cleos1 sym=${chain_A_token_sym} && if [ "$1" == "chain_B" ];then cleos=cleos2 sym=${chain_B_token_sym} ;fi
+    char=`echo $1 | cut -c 7`
+    cleos=cleos_${char}
+    var=chain_${char}_token_sym && sym=${!var}
+
+
     echo "create first user account."
     new_keys
     ${!cleos} system newaccount \
@@ -76,11 +82,16 @@ create_firstaccount(){
     ${!cleos} transfer eosio firstaccount "10000000.0000 "$sym
     import_key $pri_key
 }
-create_firstaccount chain_A
-create_firstaccount chain_B
+create_firstaccount chain_a
+create_firstaccount chain_b
+create_firstaccount chain_c
+#create_firstaccount chain_d
 
 create_account(){
-    cleos=cleos1 sym=${chain_A_token_sym} && if [ "$1" == "chain_B" ];then cleos=cleos2 sym=${chain_B_token_sym} ;fi
+    char=`echo $1 | cut -c 7`
+    cleos=cleos_${char}
+    var=chain_${char}_token_sym && sym=${!var}
+
     name=$2
     new_keys
     ${!cleos} system newaccount \
@@ -91,7 +102,10 @@ create_account(){
 }
 
 create_account_by_pub_key(){
-    cleos=cleos1 sym=${chain_A_token_sym} && if [ "$1" == "chain_B" ];then cleos=cleos2 sym=${chain_B_token_sym} ;fi
+    char=`echo $1 | cut -c 7`
+    cleos=cleos_${char}
+    var=chain_${char}_token_sym && sym=${!var}
+
     name=$2
     pub_key=$3
     ${!cleos} system newaccount \

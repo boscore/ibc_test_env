@@ -12,16 +12,16 @@ Wait all pending ibc_trx finished, then stop all relay nodes.
 
 # Step 3: 
 # Call forceinit action of four contracts on both chains.
-$cleos1 push action ${contract_chain} forceinit '[]' -x 1000 -p ${contract_chain}
-$cleos1 push action ${contract_token} forceinit '[]' -x 1000 -p ${contract_token}
-$cleos2 push action ${contract_chain} forceinit '[]' -x 1000 -p ${contract_chain}
-$cleos2 push action ${contract_token} forceinit '[]' -x 1000 -p ${contract_token}
+$cleos_a push action ${contract_chain} forceinit '[]' -x 1000 -p ${contract_chain}
+$cleos_a push action ${contract_token} forceinit '[]' -x 1000 -p ${contract_token}
+$cleos_b push action ${contract_chain} forceinit '[]' -x 1000 -p ${contract_chain}
+$cleos_b push action ${contract_token} forceinit '[]' -x 1000 -p ${contract_token}
 
 # Then check these four contracts' table scope.
-$cleos1 get scope ${contract_chain}
-$cleos1 get scope ${contract_token}
-$cleos2 get scope ${contract_chain}
-$cleos2 get scope ${contract_token}
+$cleos_a get scope ${contract_chain}
+$cleos_a get scope ${contract_token}
+$cleos_b get scope ${contract_chain}
+$cleos_b get scope ${contract_token}
 
 # ensure that the output of get scope of ${contract_chain} must be as bellow:
 {
