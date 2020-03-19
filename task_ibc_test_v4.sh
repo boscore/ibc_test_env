@@ -109,75 +109,116 @@ init_contracts chain_b
 init_contracts chain_c
 #init_contracts chain_d
 
-return
-
 
 reg_tokens(){
     ## ---------  register tokens on chain_a  ---------
 
     $cleos_a push action ${contract_token} regacpttoken \
-        '["eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","10000.0000 TOA",
+        '["eosio.token","1000000000.0000 TOA","1.0000 TOA","10000.0000 TOA",
         "1000000.0000 TOA",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOA",0.01,"0.1000 TOA",true]' -p ${contract_token}
     # $cleos_a get table ${contract_token} ${contract_token} accepts
     $cleos_a push action ${contract_token} regpegtoken \
-        '["chb","eosio.token","4,TOB","4,TOB","1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB",
+        '["chb","eosio.token","1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB",
         "1000000.0000 TOB",1000,"ibc2token555","0.1000 TOB",true]' -p ${contract_token}
     $cleos_a push action ${contract_token} regpegtoken \
-        '["chc","eosio.token","4,TOC","4,TOC","1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC",
+        '["chc","eosio.token","1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC",
         "1000000.0000 TOC",1000,"ibc2token555","0.1000 TOC",true]' -p ${contract_token}
 #    $cleos_a push action ${contract_token} regpegtoken \
-#        '["chd","eosio.token","4,TOD","4,TOD","1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD",
+#        '["chd","eosio.token","1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD",
 #        "1000000.0000 TOD",1000,"ibc2token555","0.1000 TOD",true]' -p ${contract_token}
-    # $cleos_a get table ${contract_token} ${contract_token} stats
-
-
-    ## ---------  register pegtoken as original token on chain_a  ---------
-
     $cleos_a push action ${contract_token} regacpttoken \
-        '["'${contract_token}'","4,TOB","4,TOB","1000000000.0000 TOB","1.0000 TOB","10000.0000 TOB",
+        '['${contract_token}',"1000000000.0000 TOB","1.0000 TOB","10000.0000 TOB",
         "1000000.0000 TOB",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOB",0.01,"0.1000 TOB",true]' -p ${contract_token}
-
     $cleos_a push action ${contract_token} regacpttoken \
-        '['${contract_token}',"4,TOC","4,TOC","1000000000.0000 TOC","1.0000 TOC","10000.0000 TOC",
+        '['${contract_token}',"1000000000.0000 TOC","1.0000 TOC","10000.0000 TOC",
         "1000000.0000 TOC",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOC",0.01,"0.1000 TOC",true]' -p ${contract_token}
-
-
-
-
+#    $cleos_a push action ${contract_token} regacpttoken \
+#        '['${contract_token}',"1000000000.0000 TOD","1.0000 TOD","10000.0000 TOD",
+#        "1000000.0000 TOD",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOD",0.01,"0.1000 TOD",true]' -p ${contract_token}
 
 
 
     ## ---------  register tokens on chain_b  ---------
     $cleos_b push action ${contract_token} regacpttoken \
-        '["eosio.token","4,TOB","4,TOB","1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB",
+        '["eosio.token","1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB",
         "1000000.0000 TOB",1000,"organization","htttp://www.abc.io","ibc2token555","fixed","0.1000 TOB",0.01,"0.1000 TOB",true]' -p ${contract_token}
-    # $cleos_b get table ${contract_token} ${contract_token} accepts
     $cleos_b push action ${contract_token} regpegtoken \
-        '["cha","eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA",
-        "1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
-    # $cleos_b get table ${contract_token} ${contract_token} stats
+        '["cha","eosio.token","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA","1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
+    $cleos_b push action ${contract_token} regpegtoken \
+        '["cha",'${contract_token}',"1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC","1000000.0000 TOC",1000,"ibc2token555","0.1000 TOC",true]' -p ${contract_token}
+#    $cleos_b push action ${contract_token} regpegtoken \
+#        '["cha",'${contract_token}',"1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD","1000000.0000 TOD",1000,"ibc2token555","0.1000 TOD",true]' -p ${contract_token}
+
+
 
     ## ---------  register tokens on chain_c  ---------
     $cleos_c push action ${contract_token} regacpttoken \
-        '["eosio.token","4,TOC","4,TOC","1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC",
+        '["eosio.token","1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC",
         "1000000.0000 TOC",1000,"organization","htttp://www.abc.io","ibc2token555","fixed","0.1000 TOC",0.01,"0.1000 TOC",true]' -p ${contract_token}
-    # $cleos_b get table ${contract_token} ${contract_token} accepts
     $cleos_c push action ${contract_token} regpegtoken \
-        '["cha","eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA",
-        "1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
-    # $cleos_b get table ${contract_token} ${contract_token} stats
+        '["cha","eosio.token","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA","1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
+    $cleos_c push action ${contract_token} regpegtoken \
+        '["cha",'${contract_token}',"1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB","1000000.0000 TOB",1000,"ibc2token555","0.1000 TOB",true]' -p ${contract_token}
+#    $cleos_c push action ${contract_token} regpegtoken \
+#        '["cha",'${contract_token}',"1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD","1000000.0000 TOD",1000,"ibc2token555","0.1000 TOD",true]' -p ${contract_token}
 
-    ## ---------  register tokens on chain_d  ---------
+
+
+#    ## ---------  register tokens on chain_d  ---------
 #    $cleos_d push action ${contract_token} regacpttoken \
 #        '["eosio.token","4,TOD","4,TOD","1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD",
 #        "1000000.0000 TOD",1000,"organization","htttp://www.abc.io","ibc2token555","fixed","0.1000 TOD",0.01,"0.1000 TOD",true]' -p ${contract_token}
-#    # $cleos_b get table ${contract_token} ${contract_token} accepts
-#    $cleos_d push action ${contract_token} regpegtoken \
-#        '["cha","eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA",
-#        "1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
-#    # $cleos_b get table ${contract_token} ${contract_token} stats
+#    $cleos_c push action ${contract_token} regpegtoken \
+#        '["cha","eosio.token","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA","1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
+#    $cleos_c push action ${contract_token} regpegtoken \
+#        '["cha",'${contract_token}',"1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB","1000000.0000 TOB",1000,"ibc2token555","0.1000 TOB",true]' -p ${contract_token}
+#    $cleos_c push action ${contract_token} regpegtoken \
+#        '["cha",'${contract_token}',"1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC","1000000.0000 TOC",1000,"ibc2token555","0.1000 TOC",true]' -p ${contract_token}
+
+
+# $cleos get table ${contract_token} ${contract_token} stats
+# $cleos get table ${contract_token} ${contract_token} accepts
 }
 reg_tokens
+
+return
+
+transfer_b2a_a2c(){
+
+    # b 2 a  then a 2 c
+    $cleos_b transfer -f firstaccount ibc2token555 "10.0000 TOB" "receiver1111@cha notes infomation" -p firstaccount
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","5.0000 TOB" "chainc2acnt1@chc notes infomation"]' -p receiver1111
+    $cleos_a get currency balance ${contract_token} ${contract_token}
+    $cleos_c push action -f ibc2token555 transfer '["chainc2acnt1","ibc2token555","3.0000 TOB" "chaina2acnt1@cha notes infomation"]' -p chainc2acnt1
+    # $cleos_a get currency balance ${contract_token} account
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
