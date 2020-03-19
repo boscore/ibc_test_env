@@ -112,67 +112,94 @@ init_contracts chain_c
 return
 
 
+reg_tokens(){
+    ## ---------  register tokens on chain_a  ---------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-init_two(){
     $cleos_a push action ${contract_token} regacpttoken \
-        '["eosio.token","4,EOS","4,EOSPG","1000000000.0000 EOS","10.0000 EOS","5000.0000 EOS",
-        "100000.0000 EOS",1000,"eos organization","https://eos.io","ibc2token555","fixed","0.1000 EOS",0.01,"0.1000 EOS",true]' -p ${contract_token}
+        '["eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","10000.0000 TOA",
+        "1000000.0000 TOA",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOA",0.01,"0.1000 TOA",true]' -p ${contract_token}
     # $cleos_a get table ${contract_token} ${contract_token} accepts
     $cleos_a push action ${contract_token} regpegtoken \
-        '["bos","eosio.token","4,BOS","4,BOSPG","1000000000.0000 BOSPG","10.0000 BOSPG","5000.0000 BOSPG",
-        "100000.0000 BOSPG",1000,"ibc2token555","0.1000 BOSPG",true]' -p ${contract_token}
+        '["chb","eosio.token","4,TOB","4,TOB","1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB",
+        "1000000.0000 TOB",1000,"ibc2token555","0.1000 TOB",true]' -p ${contract_token}
+    $cleos_a push action ${contract_token} regpegtoken \
+        '["chc","eosio.token","4,TOC","4,TOC","1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC",
+        "1000000.0000 TOC",1000,"ibc2token555","0.1000 TOC",true]' -p ${contract_token}
+#    $cleos_a push action ${contract_token} regpegtoken \
+#        '["chd","eosio.token","4,TOD","4,TOD","1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD",
+#        "1000000.0000 TOD",1000,"ibc2token555","0.1000 TOD",true]' -p ${contract_token}
     # $cleos_a get table ${contract_token} ${contract_token} stats
 
+
+    ## ---------  register pegtoken as original token on chain_a  ---------
+
+    $cleos_a push action ${contract_token} regacpttoken \
+        '["'${contract_token}'","4,TOB","4,TOB","1000000000.0000 TOB","1.0000 TOB","10000.0000 TOB",
+        "1000000.0000 TOB",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOB",0.01,"0.1000 TOB",true]' -p ${contract_token}
+
+    $cleos_a push action ${contract_token} regacpttoken \
+        '['${contract_token}',"4,TOC","4,TOC","1000000000.0000 TOC","1.0000 TOC","10000.0000 TOC",
+        "1000000.0000 TOC",1000,"organization","https://www.abc.io","ibc2token555","fixed","0.1000 TOC",0.01,"0.1000 TOC",true]' -p ${contract_token}
+
+
+
+
+
+
+
+    ## ---------  register tokens on chain_b  ---------
     $cleos_b push action ${contract_token} regacpttoken \
-        '["eosio.token","4,BOS","4,BOSPG","1000000000.0000 BOS","10.0000 BOS","5000.0000 BOS",
-        "100000.0000 BOS",1000,"bos organization","https://boscore.io","ibc2token555","fixed","0.1000 BOS",0.01,"0.1000 BOS",true]' -p ${contract_token}
+        '["eosio.token","4,TOB","4,TOB","1000000000.0000 TOB","1.0000 TOB","100000.0000 TOB",
+        "1000000.0000 TOB",1000,"organization","htttp://www.abc.io","ibc2token555","fixed","0.1000 TOB",0.01,"0.1000 TOB",true]' -p ${contract_token}
     # $cleos_b get table ${contract_token} ${contract_token} accepts
     $cleos_b push action ${contract_token} regpegtoken \
-        '["eos","eosio.token","4,EOS","4,EOSPG","1000000000.0000 EOSPG","10.0000 EOSPG","5000.0000 EOSPG",
-        "100000.0000 EOSPG",1000,"ibc2token555","0.1000 EOSPG",true]' -p ${contract_token}
+        '["cha","eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA",
+        "1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
     # $cleos_b get table ${contract_token} ${contract_token} stats
+
+    ## ---------  register tokens on chain_c  ---------
+    $cleos_c push action ${contract_token} regacpttoken \
+        '["eosio.token","4,TOC","4,TOC","1000000000.0000 TOC","1.0000 TOC","100000.0000 TOC",
+        "1000000.0000 TOC",1000,"organization","htttp://www.abc.io","ibc2token555","fixed","0.1000 TOC",0.01,"0.1000 TOC",true]' -p ${contract_token}
+    # $cleos_b get table ${contract_token} ${contract_token} accepts
+    $cleos_c push action ${contract_token} regpegtoken \
+        '["cha","eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA",
+        "1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
+    # $cleos_b get table ${contract_token} ${contract_token} stats
+
+    ## ---------  register tokens on chain_d  ---------
+#    $cleos_d push action ${contract_token} regacpttoken \
+#        '["eosio.token","4,TOD","4,TOD","1000000000.0000 TOD","1.0000 TOD","100000.0000 TOD",
+#        "1000000.0000 TOD",1000,"organization","htttp://www.abc.io","ibc2token555","fixed","0.1000 TOD",0.01,"0.1000 TOD",true]' -p ${contract_token}
+#    # $cleos_b get table ${contract_token} ${contract_token} accepts
+#    $cleos_d push action ${contract_token} regpegtoken \
+#        '["cha","eosio.token","4,TOA","4,TOA","1000000000.0000 TOA","1.0000 TOA","100000.0000 TOA",
+#        "1000000.0000 TOA",1000,"ibc2token555","0.1000 TOA",true]' -p ${contract_token}
+#    # $cleos_b get table ${contract_token} ${contract_token} stats
 }
-init_two
+reg_tokens
 
 
 
 transfer(){
-    $cleos_a transfer -f firstaccount ibc2token555 "10.0000 EOS" "receiver1111@bos notes infomation" -p firstaccount
-    $cleos_b transfer -f firstaccount ibc2token555 "10.0000 BOS" "receiver1111@eos notes infomation" -p firstaccount
+    $cleos_a transfer -f firstaccount ibc2token555 "1.0000 TOA" "receiver1111@bos notes infomation" -p firstaccount
+    $cleos_b transfer -f firstaccount ibc2token555 "1.0000 TOB" "receiver1111@eos notes infomation" -p firstaccount
 }
 # for i in `seq 10000`; do transfer && sleep 1 ;done
 
 withdraw(){
-    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","10.0000 BOSPG" "chainb2acnt1@bos notes infomation"]' -p receiver1111
-    $cleos_b push action -f ibc2token555 transfer '["receiver1111","ibc2token555","10.0000 EOSPG" "chaina2acnt1@eos notes infomation"]' -p receiver1111
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","1.0000 TOB" "chainb2acnt1@bos notes infomation"]' -p receiver1111
+    $cleos_b push action -f ibc2token555 transfer '["receiver1111","ibc2token555","1.0000 TOA" "chaina2acnt1@eos notes infomation"]' -p receiver1111
 }
 
 transfer_fail(){
-    $cleos_a transfer -f firstaccount ibc2token555 "10.0000 EOS" "nonexistacnt@bos" -p firstaccount
-    $cleos_b transfer -f firstaccount ibc2token555 "10.0000 BOS" "nonexistacnt@eos" -p firstaccount
+    $cleos_a transfer -f firstaccount ibc2token555 "1.0000 TOA" "nonexistacnt@bos" -p firstaccount
+    $cleos_b transfer -f firstaccount ibc2token555 "1.0000 TOB" "nonexistacnt@eos" -p firstaccount
 }
 
 withdraw_fail(){
-    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","10.0000 BOSPG" "nonexistacnt@bos"]' -p receiver1111
-    $cleos_b push action -f ibc2token555 transfer '["receiver1111","ibc2token555","10.0000 EOSPG" "nonexistacnt@eos"]' -p receiver1111
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","1.0000 TOB" "nonexistacnt@bos"]' -p receiver1111
+    $cleos_b push action -f ibc2token555 transfer '["receiver1111","ibc2token555","1.0000 TOA" "nonexistacnt@eos"]' -p receiver1111
 }
 
 
@@ -216,7 +243,7 @@ get_token_table_by_scope(){
 #    get_token_table_by_scope cashtrxs
 #
 
-# $cleos_a get currency stats ${contract_token} BOSPG
+# $cleos_a get currency stats ${contract_token} TOB
 
 
 get_account(){
@@ -239,8 +266,8 @@ get_balance(){
 
 
 get_receiver_b(){
-    $cleos_a get currency balance eosio.token receivereos1 "EOS"
-    $cleos_b get currency balance eosio.token receiverbos1 "BOS"
+    $cleos_a get currency balance eosio.token receivereos1 "TOA"
+    $cleos_b get currency balance eosio.token receiverbos1 "TOB"
 }
 #    get_receiver_b
 
@@ -252,7 +279,7 @@ pressure(){
 }
 
 huge_pressure(){
-#    while true; do $cleos_a transfer -f firstaccount ${receiver} "0.0001 EOS" -p firstaccount; done
-#    while true; do $cleos_b transfer -f firstaccount ${receiver} "0.0001 BOS" -p firstaccount; done
+#    while true; do $cleos_a transfer -f firstaccount ${receiver} "0.0001 TOA" -p firstaccount; done
+#    while true; do $cleos_b transfer -f firstaccount ${receiver} "0.0001 TOB" -p firstaccount; done
 }
 
