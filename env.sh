@@ -109,6 +109,9 @@ contract_chain_b=ibc2chain22b
 contract_chain_c=ibc2chain22c
 contract_chain_d=ibc2chain22d
 
+#
+contract_hub=ibc2hub55555
+
 
 # ibc.token contract account's public key and private key
 token_c_pubkey=EOS6Sc4BuA7dEGRU6u4VSuEKusESFe61qD8LmguGEMULrghKDSPaU

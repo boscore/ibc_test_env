@@ -12,11 +12,12 @@ set_contracts_for_chain_a(){
     ${!cleos} set contract ${contract_chain_b} ${ibc_contracts_dir}/ibc.chain -x 1000 -p ${contract_chain_b} && sleep .2
     ${!cleos} set contract ${contract_chain_c} ${ibc_contracts_dir}/ibc.chain -x 1000 -p ${contract_chain_c} && sleep .2
     ${!cleos} set contract ${contract_chain_d} ${ibc_contracts_dir}/ibc.chain -x 1000 -p ${contract_chain_d} && sleep .2
-    ${!cleos} set contract ${contract_token} ${ibc_contracts_dir}/ibc.token -x 1000 -p ${contract_token} && sleep .2
+    ${!cleos} set contract ${contract_token}   ${ibc_contracts_dir}/ibc.token -x 1000 -p ${contract_token}   && sleep .2
+    ${!cleos} set contract ${contract_hub}     ${ibc_contracts_dir}/ibc.hub   -x 1000 -p ${contract_hub}   && sleep .2
 }
 set_contracts_for_chain_a
 
-
+# for chain b c d
 set_contracts(){
     char=`echo $1 | cut -c 7`
     cleos=cleos_${char}
@@ -28,7 +29,7 @@ set_contracts chain_b
 set_contracts chain_c
 #set_contracts chain_d
 
-
+# get chain id
 chain_id_a=` ${cleos_a} get info | jq .chain_id`
 chain_id_b=` ${cleos_b} get info | jq .chain_id`
 chain_id_c=` ${cleos_c} get info | jq .chain_id`
@@ -39,6 +40,7 @@ init_contracts_for_chain_a_step1(){
     cleos=cleos_a
     ${!cleos} set account permission ${contract_token} active '{"threshold": 1, "keys":[{"key":"'${token_c_pubkey}'", "weight":1}], "accounts":[{"permission":{"actor":"'${contract_token}'","permission":"eosio.code"},"weight":1}], "waits":[] }' owner -p ${contract_token}
     ${!cleos} push action ${contract_token} setglobal '['$chain_a_name',true]' -p ${contract_token}
+    ${!cleos} push action ${contract_token} hubinit '['$contract_hub']' -p ${contract_token}
 }
 init_contracts_for_chain_a_step1
 
@@ -183,13 +185,148 @@ reg_tokens
 
 return
 
-transfer_b2a_a2c(){
+# get_balance <chain name> <contract> <account>
+get_balance(){
+    char=`echo $1 | cut -c 7`
+    cleos=cleos_${char}
+    b=`${!cleos} get currency balance $2 $3`
+    printf "chain: %s\t contract: %s\t account: %s\t balance: %s\n" $1 $2 $3 "$b"
+}
 
-    # b 2 a  then a 2 c
-    $cleos_b transfer -f firstaccount ibc2token555 "10.0000 TOB" "receiver1111@cha notes infomation" -p firstaccount
-    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","5.0000 TOB" "chainc2acnt1@chc notes infomation"]' -p receiver1111
-    $cleos_a get currency balance ${contract_token} ${contract_token}
+# get_accounts_balance <chain name> <contract> <accounts>
+get_accounts_balance(){
+    chain=$1
+    contract=$2
+    shift 2
+    for a in $@; do get_balance $chain $contract $a;done
+}
+
+get_all_balances(){
+    accounts="firstaccount receiver1111 chaina2acnt1 chaina2acnt2 ${contract_token}"
+    get_accounts_balance chain_a eosio.token       $accounts  && echo
+    get_accounts_balance chain_a ${contract_token} $accounts  && echo
+
+    accounts="firstaccount receiver1111 chainb2acnt1 chainb2acnt2 ${contract_token}"
+    get_accounts_balance chain_b eosio.token       $accounts  && echo
+    get_accounts_balance chain_b ${contract_token} $accounts  && echo
+
+    accounts="firstaccount receiver1111 chainc2acnt1 chainc2acnt2 ${contract_token}"
+#    get_accounts_balance chain_c eosio.token       $accounts  && echo
+#    get_accounts_balance chain_c ${contract_token} $accounts  && echo
+}
+get_all_balances
+
+
+transferxxx(){
+
+    # ---- simple ibc transfer ----
+    $cleos_b push action -f eosio.token  transfer '["firstaccount","ibc2token555","100.0000 TOB" "receiver1111@cha notes infomation"]' -p firstaccount
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","90.0000 TOB" "chainb2acnt1@chb notes infomation"]' -p receiver1111
+
+    $cleos_a push action -f eosio.token  transfer '["firstaccount","ibc2token555","100.0000 TOA" "receiver1111@chb notes infomation"]' -p firstaccount
+    $cleos_b push action -f ibc2token555 transfer '["receiver1111","ibc2token555","90.0000 TOA" "chaina2acnt1@cha notes infomation"]' -p receiver1111
+
+
+
+
+
+
+    $cleos_a transfer -f receiver1111 ibc2token555 "100.0000 TOB" "receiver1111@cha notes infomation" -p firstaccount
+
+
+
+
+
+
+
+
+
+    # b to a
+    $cleos_b push action -f eosio.token  transfer '["firstaccount","ibc2token555","100.0000 TOB" "receiver1111@cha notes infomation"]' -p firstaccount
+    # a to c
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","50.0000 TOB" "chainc2acnt1@chc notes infomation"]' -p receiver1111
+    # c to a
     $cleos_c push action -f ibc2token555 transfer '["chainc2acnt1","ibc2token555","3.0000 TOB" "chaina2acnt1@cha notes infomation"]' -p chainc2acnt1
+    # a to b
+    $cleos_a push action -f ibc2token555 transfer '["chaina2acnt1","ibc2token555","1.2300 TOB" "chainb2acnt1@chb notes infomation"]' -p chaina2acnt1
+    # $cleos_a get currency balance ${contract_token} account
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## without hub
+transferxx(){
+
+    # b to a
+    $cleos_b transfer -f firstaccount ibc2token555 "100.0000 TOB" "receiver1111@cha notes infomation" -p firstaccount
+    # a to c
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","50.0000 TOB" "chainc2acnt1@chc notes infomation"]' -p receiver1111
+    # c to a
+    $cleos_c push action -f ibc2token555 transfer '["chainc2acnt1","ibc2token555","3.0000 TOB" "chaina2acnt1@cha notes infomation"]' -p chainc2acnt1
+    # a to b
+    $cleos_a push action -f ibc2token555 transfer '["chaina2acnt1","ibc2token555","1.2300 TOB" "chainb2acnt1@chb notes infomation"]' -p chaina2acnt1
+    # $cleos_a get currency balance ${contract_token} account
+}
+
+
+transfer_with_hub(){
+
+    # b to a hub then to c
+    $cleos_b transfer -f firstaccount ibc2token555 "100.0000 TOB" "ibc2hub55555@cha >> chainc2acnt1@chc notes infomation" -p firstaccount
+
+
+    # a to c
+    $cleos_a push action -f ibc2token555 transfer '["receiver1111","ibc2token555","5.0000 TOB" "chainc2acnt1@chc notes infomation"]' -p receiver1111
+    # c to a hub
+    $cleos_c push action -f ibc2token555 transfer '["chainc2acnt1","ibc2token555","3.0000 TOB" "chaina2acnt1@cha notes infomation"]' -p chainc2acnt1
+    # a to b
+    $cleos_a push action -f ibc2token555 transfer '["chaina2acnt1","ibc2token555","1.2300 TOB" "chainb2acnt1@chb notes infomation"]' -p chaina2acnt1
+    # $cleos_a get currency balance ${contract_token} account
+}
+
+
+#  b 链上的token转到 c 链 再从c链转回来
+
+transfer_with_hub(){
+
+    # b to a hub then to c
+    $cleos_b transfer -f firstaccount ibc2token555 "100.0000 TOB" "ibc2hub55555@cha >> chainc2acnt1@chc notes infomation" -p firstaccount
+
+    $cleos_a push action -f ibc2token555 transfer '["ibc2hub55555","ibc2token555","5.0000 TOB" "chainc2acnt1@chc notes infomation"]' -p receiver1111
+    # c to a hub
+    $cleos_c push action -f ibc2token555 transfer '["chainc2acnt1","ibc2token555","3.0000 TOB" "chaina2acnt1@cha notes infomation"]' -p chainc2acnt1
+    # a to b
+    $cleos_a push action -f ibc2token555 transfer '["chaina2acnt1","ibc2token555","1.2300 TOB" "chainb2acnt1@chb notes infomation"]' -p chaina2acnt1
     # $cleos_a get currency balance ${contract_token} account
 }
 
@@ -197,6 +334,9 @@ transfer_b2a_a2c(){
 
 
 
+
+
+#  a 链上的token转到 c 链 再从c链转回来
 
 
 
