@@ -38,6 +38,6 @@ create_accounts_for_chain_a(){
     create_account chain_a ${contract_chain_b}
     create_account chain_a ${contract_chain_c}
     create_account chain_a ${contract_chain_d}
-    create_account chain_a ${contract_hub}
+    create_account chain_a ${hub_account}
 }
 create_accounts_for_chain_a

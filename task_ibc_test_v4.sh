@@ -39,7 +39,7 @@ init_contracts_for_chain_a_step1(){
     cleos=cleos_a
     ${!cleos} set account permission ${contract_token} active '{"threshold": 1, "keys":[{"key":"'${token_c_pubkey}'", "weight":1}], "accounts":[{"permission":{"actor":"'${contract_token}'","permission":"eosio.code"},"weight":1}], "waits":[] }' owner -p ${contract_token}
     ${!cleos} push action ${contract_token} setglobal '['$chain_a_name',true]' -p ${contract_token}
-    ${!cleos} push action ${contract_token} hubinit '['$contract_hub']' -p ${contract_token}
+    ${!cleos} push action ${contract_token} hubinit '['$hub_account']' -p ${contract_token}
 }
 init_contracts_for_chain_a_step1
 
@@ -238,17 +238,17 @@ transferxxx(){
     $cleos_b push action -f eosio.token  transfer '["firstaccount","ibc2token555","100.0000 TOB" "ibc2hub55555@cha >> chainc2acnt1@chc notes infomation"]' -p firstaccount
 
     $cleos_a push action -f ibc2token555  transfer '["ibc2hub55555","ibc2token555","99.9000 TOB"
-    "chainc2acnt1@chc orig_trx_id=151b40701f48f4d0df0a924de8ab046340f8b6f8f68d5f7edeed04835bd5aae3 relayer=chaina2acnt2  notes infomation"]' -p firstaccount
+    "chainc2acnt1@chc orig_trx_id=151b40701f48f4d0df0a924de8ab046340f8b6f8f68d5f7edeed04835bd5aae3 relay=chaina2acnt2  notes infomation"]' -p firstaccount
 
     $cleos_c push action -f ibc2token555  transfer '["chainc2acnt1","ibc2token555","10.0000 TOB" "ibc2hub55555@cha >> chainb2acnt2@chb notes infomation"]' -p chainc2acnt1
 
     $cleos_a push action -f ibc2token555  transfer '["ibc2hub55555","ibc2token555","9.8000 TOB"
-    "chainb2acnt2@chb orig_trx_id=d83d24810fdc6f5f0db14591d6a080a1feae9959df0dcfeafcc7c9fcc2221c34 relayer=chaina2acnt2  notes infomation"]' -p firstaccount
+    "chainb2acnt2@chb orig_trx_id=d83d24810fdc6f5f0db14591d6a080a1feae9959df0dcfeafcc7c9fcc2221c34 relay=chaina2acnt2  notes infomation"]' -p firstaccount
 
     $cleos_c push action -f ibc2token555  transfer '["chainc2acnt1","ibc2token555","89.9000 TOB" "ibc2hub55555@cha >> chainb2acnt2@chb notes infomation"]' -p chainc2acnt1
 
     $cleos_a push action -f ibc2token555  transfer '["ibc2hub55555","ibc2token555","89.7000 TOB"
-    "chainb2acnt2@chb orig_trx_id=21619f8b08389958fc909fa9b19971d3a4b2d9f1cd77b08f69bd95720dd9e340 relayer=chaina2acnt1  notes infomation"]' -p firstaccount
+    "chainb2acnt2@chb orig_trx_id=21619f8b08389958fc909fa9b19971d3a4b2d9f1cd77b08f69bd95720dd9e340 relay=chaina2acnt1  notes infomation"]' -p firstaccount
 
 
 
@@ -260,13 +260,13 @@ transferxxx(){
 
     # back
     $cleos_a push action -f ibc2token555  transfer '["ibc2hub55555","ibc2token555","999.8000 TOA"
-    "receiver1111@chb orig_trx_id=04589e120a6f82c622e197dbd67cfbbe980093715f2b606d78a41dd554007cd8 relayer=chaina2acnt2  notes infomation"]' -p firstaccount
+    "receiver1111@chb orig_trx_id=04589e120a6f82c622e197dbd67cfbbe980093715f2b606d78a41dd554007cd8 relay=chaina2acnt2  notes infomation"]' -p firstaccount
 
     # b -> c
     $cleos_b push action -f ibc2token555  transfer '["receiver1111","ibc2token555","999.8000 TOA" "ibc2hub55555@cha >> chainc2acnt2@chc notes infomation"]' -p receiver1111
 
     $cleos_a push action -f ibc2token555  transfer '["ibc2hub55555","ibc2token555","999.6000 TOA"
-    "chainc2acnt2@chc orig_trx_id=348cf480aba0479fba774edf1e5bee9afdf7bb37f1f7452a90518b14fa092ece relayer=chaina2acnt2  notes infomation"]' -p firstaccount
+    "chainc2acnt2@chc orig_trx_id=348cf480aba0479fba774edf1e5bee9afdf7bb37f1f7452a90518b14fa092ece relay=chaina2acnt2  notes infomation"]' -p firstaccount
 
     $cleos_c push action -f ibc2token555  transfer '["chainc2acnt2","ibc2token555","999.6000 TOA" "receiver1111@cha notes infomation"]' -p chainc2acnt2
 
@@ -276,7 +276,7 @@ transferxxx(){
     $cleos_c push action -f ibc2token555  transfer '["chainc2acnt1","ibc2token555","10.0000 TOA" "ibc2hub55555@cha >> chainb2acnt2@chb notes infomation"]' -p chainc2acnt1
 
     $cleos_a push action -f ibc2token555  transfer '["ibc2hub55555","ibc2token555","9.9000 TOA"
-    "chainb2acnt2@chb orig_trx_id=943333e4966e6219a2958ffb8d3fcde200cb797a10dac13101a8c0e0dcde5301 relayer=chaina2acnt2  notes infomation"]' -p firstaccount
+    "chainb2acnt2@chb orig_trx_id=943333e4966e6219a2958ffb8d3fcde200cb797a10dac13101a8c0e0dcde5301 relay=chaina2acnt2  notes infomation"]' -p firstaccount
 
 
     ## $cleos_a get table ${contract_token} ${contract_token} hubtrxs

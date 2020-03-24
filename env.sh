@@ -110,7 +110,7 @@ contract_chain_c=ibc2chain22c
 contract_chain_d=ibc2chain22d
 
 #
-contract_hub=ibc2hub55555
+hub_account=ibc2hub55555
 
 
 # ibc.token contract account's public key and private key
