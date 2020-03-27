@@ -22,6 +22,8 @@ eosio_sys_contracts_dir=${src_base_dir}/EOSIO/eosio.contracts/build/contracts
 bos_sys_contracts_dir=${src_base_dir}/boscore/bos.contracts/build/contracts
 ibc_contracts_dir=${src_base_dir}/boscore/ibc_contracts/build
 
+ibc_token_hub_dir=${src_base_dir}/boscore/ibc_contracts/build/hub
+
 eosio_launcher=${src_base_dir}/boscore/bos/build/programs/eosio-launcher/eosio-launcher
 cleos=${src_base_dir}/boscore/bos/build/programs/cleos/cleos
 
