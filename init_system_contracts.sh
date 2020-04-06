@@ -44,7 +44,7 @@ setup_system_contracts_and_issue_token(){
 }
 setup_system_contracts_and_issue_token chain_a
 setup_system_contracts_and_issue_token chain_b
-setup_system_contracts_and_issue_token chain_c
+#setup_system_contracts_and_issue_token chain_c
 #setup_system_contracts_and_issue_token chain_d
 
 sleep .2
@@ -63,7 +63,7 @@ upgrade_consensus(){
 }
 upgrade_consensus chain_a
 upgrade_consensus chain_b
-upgrade_consensus chain_c
+#upgrade_consensus chain_c
 #upgrade_consensus chain_d
 
 
@@ -84,7 +84,7 @@ create_firstaccount(){
 }
 create_firstaccount chain_a
 create_firstaccount chain_b
-create_firstaccount chain_c
+#create_firstaccount chain_c
 #create_firstaccount chain_d
 
 create_account(){

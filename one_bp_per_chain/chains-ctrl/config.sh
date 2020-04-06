@@ -7,7 +7,7 @@ plugin = eosio::producer_api_plugin
 plugin = eosio::chain_api_plugin
 plugin = eosio::net_plugin
 contracts-console = true
-max-transaction-time = 1000
+max-transaction-time = 2000
 p2p-max-nodes-per-host = 20
 
 producer-name = eosio
@@ -18,6 +18,7 @@ read -d '' config_bios_chain_a << EOF
 p2p-server-address = localhost:4001
 p2p-listen-endpoint = 0.0.0.0:4001
 http-server-address = 127.0.0.1:4002
+wasm-runtime = eos-vm-jit
 EOF
 
 read -d '' config_bios_chain_b << EOF
@@ -46,7 +47,7 @@ plugin = eosio::chain_api_plugin
 p2p-max-nodes-per-host = 50
 max-clients = 25
 contracts-console = true
-max-transaction-time = 1000
+max-transaction-time = 2000
 
 plugin = eosio::ibc::ibc_plugin
 ibc-max-clients = 20
@@ -66,6 +67,8 @@ ibc-listen-endpoint = 0.0.0.0:4211
 #ibc-peer-address = 127.0.0.1:4212  # comment out the line
 
 ibc-chain-contract = ibc2chain22b
+
+wasm-runtime = eos-vm-jit
 
 ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
 EOF
@@ -189,7 +192,7 @@ read -d '' logging << EOF
   ],
   "loggers": [{
       "name": "default",
-      "level": "debug",
+      "level": "info",
       "enabled": true,
       "additivity": false,
       "appenders": [
@@ -244,7 +247,7 @@ read -d '' logging_v << EOF
   ],
   "loggers": [{
       "name": "default",
-      "level": "debug",
+      "level": "info",
       "enabled": true,
       "additivity": false,
       "appenders": [
