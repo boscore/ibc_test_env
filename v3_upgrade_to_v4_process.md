@@ -4,15 +4,30 @@ ibc.token upgrade from v3 to v4
 all `parallel chain`s and `hub chain` should upgrade their `ibc.token` contract.
 
 
-### 1. EOS mainnet ibc.token upgrade process
+### 1. EOSIO mainnet ibc.token upgrade process
 
 #### step 1 : set global and get info
 
-cleos_eos='cleos -u http://peer1.eoshuobipool.com:8181'
-$cleos_eos push action bosibc.io setglobal '["eos",false]' -p bosibc.io
-
-$cleos_eos get table bosibc.io bosibc.io accepts
+bash variables
 ```
+cleos_eos='cleos -u http://peer1.eoshuobipool.com:8181'
+```
+
+
+ensure all ibc transactions have finished.
+```
+$cleos_eos get table bosibc.io bos origtrxs
+```
+
+set global false
+``` 
+$cleos_eos push action bosibc.io setglobal '["eos",false]' -p mercuryoooo
+```
+
+get table info
+```
+$cleos_eos get table bosibc.io bosibc.io accepts
+
 {
   "rows": [{
       "original_contract": "eosio.token",
@@ -213,6 +228,12 @@ $cleos_eos push action bosibc.io addpegtoken \
         '["bos","unicorntoken","10000000000.0000 UB","1.0000 UB","50000.0000 UB",
         "500000.0000 UB",50,"ubibcmanager","0.1000 UB",true,"0.0000 UB","1.0000 UB","1.0000 UB"]' -p bosibc.io
 
+```
+
+check if tables had added
+``` 
+$cleos_eos get table bosibc.io bosibc.io accepts
+$cleos_eos get table bosibc.io bosibc.io stats
 ```
 
 #### step 4 : deploy v4 ibc.token contract
