@@ -11,6 +11,7 @@ all `parallel chain`s and `hub chain` should upgrade their `ibc.token` contract.
 bash variables
 ```
 cleos_eos='cleos -u http://peer1.eoshuobipool.com:8181'
+base_dir=/Users/song/Code/github.com/boscore/bos.contract-prebuild/bosibc
 ```
 
 
@@ -24,7 +25,7 @@ set global active false
 $cleos_eos push action bosibc.io setglobal '["eos",false]' -p bosibc.io
 ```
 
-get table info
+get table accepts info
 ```
 $cleos_eos get table bosibc.io bosibc.io accepts
 
@@ -123,10 +124,9 @@ $cleos_eos get table bosibc.io bosibc.io accepts
 }
 ```
 
-
-
-$cleos_eos get table bosibc.io bosibc.io stats
+get table stats info
 ``` 
+$cleos_eos get table bosibc.io bosibc.io stats
 
 {
   "rows": [{
@@ -190,7 +190,7 @@ $cleos_eos get table bosibc.io bosibc.io stats
 check out branch `upgrade_v3_to_v4` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project 
 or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
 ``` 
-ibc_contracts_dir='...'
+ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4
 $cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
 $cleos_eos push action bosibc.io deltokentbl '[]' -p bosibc.io
 ```
@@ -205,7 +205,7 @@ $cleos_eos get table bosibc.io bosibc.io stats
 check out branch `upgrade_v3_to_v4_step2` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project 
 or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
 ``` 
-ibc_contracts_dir='...'
+ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4_step2
 $cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
 $cleos_eos push action bosibc.io addacpttoken \
      '["eosio.token","1000000000.0000 EOS","0.2000 EOS","1000000.0000 EOS",
@@ -241,7 +241,7 @@ check out branch `master` of [ibc_contracts](https://github.com/boscore/ibc_cont
 or use pre-build contact on [bos.contract-prebuild/bosibc](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc).
 
 ```
-ibc_contracts_dir='...'
+ibc_contracts_dir=${base_dir}
 $cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
 ```
 
@@ -265,6 +265,7 @@ cleos_bos='cleos -u http://bosapi.tokenpocket.pro'
 ensure all ibc transactions have finished.
 ```
 $cleos_bos get table bosibc.io eos origtrxs
+$cleos_bos get table bosibc.io tlos origtrxs
 ```
 
 set global active false
@@ -455,7 +456,7 @@ $cleos_bos get table bosibc.io bosibc.io stats
 check out branch `upgrade_v3_to_v4` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project 
 or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
 ``` 
-ibc_contracts_dir='...'
+ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4
 $cleos_bos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
 $cleos_bos push action bosibc.io deltokentbl '[]' -p bosibc.io
 ```
@@ -470,7 +471,7 @@ $cleos_bos get table bosibc.io bosibc.io stats
 check out branch `upgrade_v3_to_v4_step2` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project 
 or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
 ``` 
-ibc_contracts_dir='...'
+ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4_step2
 $cleos_bos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
 $cleos_bos push action bosibc.io addacpttoken \
      '["eosio.token","1000000000.0000 BOS","0.2000 BOS","1000000.0000 BOS",
@@ -506,12 +507,12 @@ $cleos_bos get table bosibc.io bosibc.io accepts
 $cleos_bos get table bosibc.io bosibc.io stats
 ```
 
-#### step 4 : deploy v4 ibc.token contract
+#### step 4 : deploy v4 hub ibc.token contract
 check out branch `master` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project 
 or use pre-build contact on [bos.contract-prebuild/bosibc](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc).
 
 ```
-ibc_contracts_dir='...'
+ibc_contracts_dir=${base_dir}/v4.0.0_hub_ibc_token
 $cleos_bos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
 ```
 
