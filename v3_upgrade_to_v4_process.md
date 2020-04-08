@@ -264,7 +264,7 @@ cleos_bos='cleos -u http://bosapi.tokenpocket.pro'
 
 ensure all ibc transactions have finished.
 ```
-$cleos_bos get table bosibc.io bos origtrxs
+$cleos_bos get table bosibc.io eos origtrxs
 ```
 
 set global active false
