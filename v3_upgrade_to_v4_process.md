@@ -6,6 +6,17 @@ All `parallel chain`s and `hub chain` should upgrade their `ibc.token` contract 
 
 ### 1. EOSIO mainnet ibc.token upgrade process
 
+
+**Note: In v3 and v4 versions, the definitions of tables `accepts` and `stats` are different, 
+so you can't directly use command `cleos set contract ...` to update the ibc.token contract, 
+you must first delete these two tables completely, then deploy a new contract(with new table structure definition), 
+and then restore the information of the two tables. 
+Therefore, the first step is to record the information of the tables, 
+the second step is to delete the tables, 
+the third step is to deploy a new table ( with new table structure definition), and restore the information,
+and because the action used for restore is a special action (not used in normal contract), so the fourth step is required to deploy the final contract.**
+
+
 #### step 1 : get tables info
 
 bash variables
@@ -174,6 +185,7 @@ $cleos_eos get table bosibc.io bosibc.io stats
   "next_key": ""
 }
 ```
+
 
 #### step 2 : deploy special ibc.token contracts and clear tables
 check out branch `upgrade_v3_to_v4` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt` 
@@ -492,5 +504,29 @@ set hub globals
 $cleos_bos push action bosibc.io hubinit '["hub.io"]' -p bosibc.io
 ```
 
+register pegged tokens to accetps table to support hub transaction. 
+``` 
 
+$cleos_bos push action bosibc.io regacpttoken \
+    '["bosibc.io","1000000000.0000 EOS","0.2000 EOS","100000.0000 EOS",
+    "1000000.0000 EOS",100,"block one","https://eos.io","bostkadmin33","fixed","0.0100 EOS",0.0,"0.0100 EOS",true]' -p bosibc.io
+
+$cleos_bos push action bosibc.io regacpttoken \
+    '["bosibc.io","1000000000000.0000 USDT","0.1000 USDT","100000.0000 USDT",
+    "10000000.0000 USDT",200,"bitfinex","https://www.eosfinex.com","bostkadmin33","fixed","0.0100 USDT",0.0,"0.0050 USDT",true]' -p bosibc.io
+
+$cleos_bos push action bosibc.io regacpttoken \
+    '["bosibc.io","10000000000.0000 TLOS","1.0000 TLOS","1000000.0000 TLOS",
+    "10000000.0000 TLOS",50,"telos","https://www.telosfoundation.io","bostkadmin33","fixed","0.1000 TLOS",0.0,"0.0100 TLOS",true]' -p bosibc.io
+
+$cleos_bos push action bosibc.io regacpttoken \
+    '["bosibc.io","5900000000.0000 TPT","100.0000 TPT","10000000.0000 TPT",
+    "100000000.0000 TPT",50,"TokenPocket","https://tokenpocket.pro","itokenpocket","fixed","10.0000 TPT",0.0,"1.0000 TPT",true]' -p bosibc.io
+
+```
+
+check table accepts
+``` 
+$cleos_bos get table bosibc.io bosibc.io accepts
+```
 
