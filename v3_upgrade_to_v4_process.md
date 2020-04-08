@@ -3,9 +3,12 @@ ibc.token upgrade from v3 to v4
 -------------------------------
 All `parallel chain`s and `hub chain` should upgrade their `ibc.token` contract to v4.
 
-
-### 1. EOSIO mainnet ibc.token upgrade process
-
+Contents
+--------
+ * [EOSIO mainnet ibc.token upgrade process](#1-eosio-mainnet-ibctoken-upgrade-process)
+ * [BOSCORE mainnet ibc.token upgrade process](#2-boscore-mainnet-ibctoken-upgrade-process)
+ * [TELOS mainnet ibc.token upgrade process](#3-telos-mainnet-ibctoken-upgrade-process)
+ 
 
 **Note: In v3 and v4 versions, the definitions of tables `accepts` and `stats` are different, 
 so you can't directly use command `cleos set contract ...` to update the ibc.token contract, 
@@ -15,7 +18,9 @@ Therefore, the first step is to record the information of the tables,
 the second step is to delete the tables, 
 the third step is to deploy a new table ( with new table structure definition), and restore the information,
 and because the action used for restore is a special action (not used in normal contract), so the fourth step is required to deploy the final contract.**
+ 
 
+### 1. EOSIO mainnet ibc.token upgrade process
 
 #### step 1 : get tables info
 
@@ -189,7 +194,7 @@ $cleos_eos get table bosibc.io bosibc.io stats
 
 #### step 2 : deploy special ibc.token contracts and clear tables
 check out branch `upgrade_v3_to_v4` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt` 
-or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
+or use pre-build contract on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
 ``` 
 ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4
 $cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
@@ -204,7 +209,7 @@ $cleos_eos get table bosibc.io bosibc.io stats
 
 #### step 3 : deploy another special ibc.token contract and add data to tables
 check out branch `upgrade_v3_to_v4_step2` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt` 
-or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
+or use pre-build contract on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
 ``` 
 ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4_step2
 $cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
@@ -239,11 +244,17 @@ $cleos_eos get table bosibc.io bosibc.io stats
 
 #### step 4 : deploy v4 ibc.token contract
 check out branch `master` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt` 
-or use pre-build contact on [bos.contract-prebuild/bosibc](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc).
+or use pre-build contract on [bos.contract-prebuild/bosibc](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc).
 
 ```
 ibc_contracts_dir=${base_dir}
 $cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
+```
+
+#### step 5 : register pegged tokens (hub)
+```
+$cleos_eos push action bosibc.io regpegtoken \
+     '["bos","bosibc.io","10000000000.0000 TLOS","1.0000 TLOS","1000000.0000 TLOS","10000000.0000 TLOS",50,"bostkadmin33","0.0100 TLOS",true]' -p bosibc.io
 ```
 
 
@@ -438,7 +449,7 @@ $cleos_bos get table bosibc.io bosibc.io stats
 
 #### step 2 : deploy special ibc.token contracts and clear tables
 check out branch `upgrade_v3_to_v4` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt`
-or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
+or use pre-build contract on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
 ``` 
 ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4
 $cleos_bos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
@@ -453,7 +464,7 @@ $cleos_bos get table bosibc.io bosibc.io stats
 
 #### step 3 : deploy another special ibc.token contract and set tables
 check out branch `upgrade_v3_to_v4_step2` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt`
-or use pre-build contact on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
+or use pre-build contract on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
 ``` 
 ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4_step2
 $cleos_bos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
@@ -492,7 +503,7 @@ $cleos_bos get table bosibc.io bosibc.io stats
 
 #### step 4 : deploy v4 hub ibc.token contract
 check out branch `master` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt HUB_PROTOCOL=ON`
-or use pre-build contact on [bos.contract-prebuild/bosibc/v4.0.0_hub_ibc_token](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/v4.0.0_hub_ibc_token).
+or use pre-build contract on [bos.contract-prebuild/bosibc/v4.0.0_hub_ibc_token](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/v4.0.0_hub_ibc_token).
 
 ```
 ibc_contracts_dir=${base_dir}/v4.0.0_hub_ibc_token
@@ -530,3 +541,76 @@ check table accepts
 $cleos_bos get table bosibc.io bosibc.io accepts
 ```
 
+
+### 3. TELOS mainnet ibc.token upgrade process
+
+#### step 1 : set global and get info
+
+bash variables
+```
+cleos_tls='cleos -u '
+```
+
+get table accepts info
+```
+$cleos_tls get table bosibc.io bosibc.io accepts
+
+
+
+```
+
+get table stats info
+``` 
+$cleos_tls get table bosibc.io bosibc.io stats
+
+
+```
+
+#### step 2 : deploy special ibc.token contracts and clear tables
+check out branch `upgrade_v3_to_v4` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt`
+or use pre-build contract on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4/ibc.token).
+``` 
+ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4
+$cleos_tls set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
+$cleos_tls push action bosibc.io deltokentbl '[]' -p bosibc.io
+```
+
+check if tables has cleared
+``` 
+$cleos_tls get table bosibc.io bosibc.io accepts
+$cleos_tls get table bosibc.io bosibc.io stats
+```
+
+#### step 3 : deploy another special ibc.token contract and set tables
+check out branch `upgrade_v3_to_v4_step2` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt`
+or use pre-build contract on [bos.contract-prebuild/bosibc/upgrade_v3_to_v4_step2](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc/upgrade_v3_to_v4_step2/ibc.token).
+``` 
+ibc_contracts_dir=${base_dir}/upgrade_v3_to_v4_step2
+$cleos_tls set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
+
+
+
+
+
+
+```
+
+check if tables had added
+``` 
+$cleos_tls get table bosibc.io bosibc.io accepts
+$cleos_tls get table bosibc.io bosibc.io stats
+```
+
+#### step 4 : deploy v4 ibc.token contract
+check out branch `master` of [ibc_contracts](https://github.com/boscore/ibc_contracts) project and build with command `./build.sh bos.cdt` 
+or use pre-build contract on [bos.contract-prebuild/bosibc](https://github.com/boscore/bos.contract-prebuild/tree/master/bosibc).
+
+```
+ibc_contracts_dir=${base_dir}
+$cleos_eos set contract bosibc.io ${ibc_contracts_dir}/ibc.token -x 1000 -p bosibc.io
+```
+
+#### step 5 : register pegged tokens (hub)
+```
+
+```
