@@ -2,8 +2,9 @@
 
 
 # chain name can be "eos" or "bos", consensus can be "pipeline" or "batch", ibc_plugin_version can be 1 or 2
-chain_a=eos_pipeline
+chain_a=eos_pipeline  #eos_pipeline
 chain_b=bos_batch
+
 chain_c=bos_batch
 chain_d=bos_batch
 
@@ -12,23 +13,23 @@ chain_d=bos_batch
 src_base_dir=~/Code/github.com
 nodeos_file=build/programs/nodeos/nodeos
 
-eosio_nodeos=${src_base_dir}/EOSIO/eos/${nodeos_file}
-boscore_nodeos=${src_base_dir}/boscore/bos/${nodeos_file}
+eosio_nodeos=${src_base_dir}/bins/eos_v2.0.6
+boscore_nodeos=${src_base_dir}/bins/bos_v3.0.8
 
-#eosio_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_eos/${nodeos_file}
-eosio_ibc_plugin_nodeos=${src_base_dir}/boscore/eos/${nodeos_file}
-boscore_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_bos/${nodeos_file}
+eosio_ibc_plugin_nodeos=${src_base_dir}/bins/ibc_plugin_eos_v4.0.2
+boscore_ibc_plugin_nodeos=${src_base_dir}/bins/ibc_plugin_bos_v4.2.0
 
+# eosio_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_eos/${nodeos_file}
+# boscore_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_bos/${nodeos_file}
 #eosio_sys_contracts_dir=${src_base_dir}/EOSIO/eosio.contracts/build/contracts
 #bos_sys_contracts_dir=${src_base_dir}/boscore/bos.contracts/build/contracts
 #ibc_contracts_dir=${src_base_dir}/boscore/ibc_contracts/build
 #ibc_token_hub_dir=${src_base_dir}/boscore/ibc_contracts/build/hub
 
-
 eosio_sys_contracts_dir=${src_base_dir}/bins/eosio.contracts/current
 bos_sys_contracts_dir=${src_base_dir}/bins/bos.contracts/current
 ibc_contracts_dir=${src_base_dir}/bins/ibc_contracts/current
-ibc_token_hub_dir=${src_base_dir}/bins/ibc_contracts/current/hub
+ibc_token_hub_dir=${src_base_dir}/bins/ibc_contracts/current
 
 
 eosio_launcher=${src_base_dir}/boscore/bos/build/programs/eosio-launcher/eosio-launcher
