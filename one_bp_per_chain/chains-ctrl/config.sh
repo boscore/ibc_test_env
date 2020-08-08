@@ -57,6 +57,22 @@ ibc-relay-name = ibc2relay555
 ibc-relay-private-key = EOS5jLHvXsFPvUAawjc6qodxUbkBjWcU1j6GUghsNvsGPRdFV5ZWi=KEY:5K2ezP476ThBo9zSrDqTofzaLiKrQaLEkAzv3USdeaFFrD5LAX1
 EOF
 
+read -d '' config_relay_chain_a << EOF
+p2p-server-address = localhost:4011
+p2p-listen-endpoint = 0.0.0.0:4011
+http-server-address = 127.0.0.1:4012
+p2p-peer-address = localhost:4001
+
+ibc-listen-endpoint = 0.0.0.0:4211
+#ibc-peer-address = 127.0.0.1:4212  # comment out the line
+
+ibc-chain-contract = ibc2chain555
+
+wasm-runtime = eos-vm-jit
+
+ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
+EOF
+
 read -d '' config_relay_chain_a2b << EOF
 p2p-server-address = localhost:4011
 p2p-listen-endpoint = 0.0.0.0:4011
@@ -66,8 +82,8 @@ p2p-peer-address = localhost:4001
 ibc-listen-endpoint = 0.0.0.0:4211
 #ibc-peer-address = 127.0.0.1:4212  # comment out the line
 
-ibc-chain-contract = ibc2chain22b
-
+# ibc-chain-contract = ibc2chain22b
+ibc-chain-contract = ibc2chain555
 wasm-runtime = eos-vm-jit
 
 ibc-peer-private-key = EOS65jr3UsJi2Lpe9GbxDUmJYUpWeBTJNrqiDq2hYimQyD2kThfAE=KEY:5KHJeTFezCwFCYsaA4Hm2sqEXvxmD2zkgvs3fRT2KarWLiTwv71
@@ -247,7 +263,7 @@ read -d '' logging_v << EOF
   ],
   "loggers": [{
       "name": "default",
-      "level": "info",
+      "level": "debug",
       "enabled": true,
       "additivity": false,
       "appenders": [

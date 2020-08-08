@@ -2,7 +2,8 @@
 
 
 # chain name can be "eos" or "bos", consensus can be "pipeline" or "batch", ibc_plugin_version can be 1 or 2
-chain_a=eos_pipeline  #eos_pipeline
+# eos_pipeline or  bos_batch
+chain_a=bos_batch
 chain_b=bos_batch
 
 chain_c=bos_batch
@@ -17,18 +18,18 @@ eosio_nodeos=${src_base_dir}/bins/eos_v2.0.6
 boscore_nodeos=${src_base_dir}/bins/bos_v3.0.8
 
 eosio_ibc_plugin_nodeos=${src_base_dir}/bins/ibc_plugin_eos_v4.0.2
-boscore_ibc_plugin_nodeos=${src_base_dir}/bins/ibc_plugin_bos_v4.2.0
+# boscore_ibc_plugin_nodeos=${src_base_dir}/bins/ibc_plugin_bos_v4.2.4
 
 # eosio_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_eos/${nodeos_file}
-# boscore_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_bos/${nodeos_file}
+boscore_ibc_plugin_nodeos=${src_base_dir}/boscore/ibc_plugin_bos/${nodeos_file}
 #eosio_sys_contracts_dir=${src_base_dir}/EOSIO/eosio.contracts/build/contracts
 #bos_sys_contracts_dir=${src_base_dir}/boscore/bos.contracts/build/contracts
-#ibc_contracts_dir=${src_base_dir}/boscore/ibc_contracts/build
+ibc_contracts_dir=${src_base_dir}/boscore/ibc_contracts/build
 #ibc_token_hub_dir=${src_base_dir}/boscore/ibc_contracts/build/hub
 
 eosio_sys_contracts_dir=${src_base_dir}/bins/eosio.contracts/current
 bos_sys_contracts_dir=${src_base_dir}/bins/bos.contracts/current
-ibc_contracts_dir=${src_base_dir}/bins/ibc_contracts/current
+# ibc_contracts_dir=${src_base_dir}/bins/ibc_contracts/current
 ibc_token_hub_dir=${src_base_dir}/bins/ibc_contracts/current
 
 
@@ -121,11 +122,19 @@ contract_chain_d=ibc2chain22d
 
 #
 hub_account=ibc2hub55555
-
+admin_account=ibc2admin555
+proxy_account=ibc2prxoy555
+user_contract=usercontract   #prosy_test
 
 # ibc.token contract account's public key and private key
 token_c_pubkey=EOS6Sc4BuA7dEGRU6u4VSuEKusESFe61qD8LmguGEMULrghKDSPaU
 token_c_prikey=5K79wAY8rgPwWQSRmyQa2BR8vPicieJdLCXL3cM5Db77QnsJess
+
+proxy_c_pubkey=EOS6PotnTNFUBTk6mZKp99rVGtCMMhRQWbfEdtLmbMT4g2NEQCeJx
+proxy_c_prikey=5Jvzx5Unv4TvfoRwKWkAwDFj6God7TYMeuZAeqcotoT7jGcmEWM
+
+userc_c_pubkey=EOS75icHCpd7u7wLPxELAfqkyGD36wGVu6cAkVztAgsLwqvByt6jV
+userc_c_prikey=5K47wKaVeZVXkE9fr81dm74oMwJBvxxgJw9qyBFFpCXyt1CKTfB
 
 receiver=receiver1111
 

@@ -8,8 +8,8 @@ if [ "$bn" != "one_bp_per_chain" ]; then
     return
 fi
 
-curl -X POST http://127.0.0.1:4002/v1/producer/schedule_protocol_feature_activations -d \
-     '{"protocol_features_to_activate": ["0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd"]}' | jq
+# curl -X POST http://127.0.0.1:4002/v1/producer/schedule_protocol_feature_activations -d \
+#      '{"protocol_features_to_activate": ["0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd"]}' | jq
 
 . ./../env.sh
 . ./../init.sh
@@ -52,4 +52,4 @@ activate_features(){
 #   n=` $cleos_a get info |jq .head_block_num` && $cleos_a get block --header-state $n
 
 }
-activate_features
+# activate_features
